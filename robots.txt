@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ariya.app/sitemap.xml
