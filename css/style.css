@@ -132,6 +132,10 @@ section{padding:110px 0;position:relative;z-index:1}
 .release-status{margin-top:18px;text-align:center;font-size:.8rem;color:var(--text3);line-height:1.6}
 .release-status.warn{color:var(--amber)}
 .release-status[hidden]{display:none}
+.release-status .status-btn{background:none;border:none;padding:0;margin-left:8px;font:inherit;font-size:.8rem;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.release-status .status-btn:hover{color:var(--accent2)}
+#news-image{display:none;width:100%;max-height:340px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border);margin:0 0 18px}
+#news-image:not([hidden]){display:block}
 
 /* NOTES */
 .notes-card{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:36px;max-width:700px;margin:0 auto;position:relative;overflow:hidden}

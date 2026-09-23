@@ -1,5 +1,5 @@
-const CACHE = 'ariya-dl-v2';
-const ASSETS = ['/', '/index.html', '/css/style.css', '/js/config.js', '/js/github.js', '/js/release-sync.js', '/js/download.js', '/js/app.js', '/manifest.json'];
+const CACHE = 'ariya-dl-v3';
+const ASSETS = ['/', '/index.html', '/css/style.css', '/js/config.js', '/js/github.js', '/js/news.js', '/js/release-sync.js', '/js/download.js', '/js/app.js', '/manifest.json'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));

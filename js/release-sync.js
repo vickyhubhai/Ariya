@@ -8,6 +8,7 @@ const ReleaseSync = {
 
     this.bindBadge();
     this.bindReleaseLinks();
+    this.bindCheckButton();
 
     const cached = GitHub.loadCachedRelease();
     if (cached) {
@@ -48,6 +49,7 @@ const ReleaseSync = {
   onReleaseLoaded(release) {
     if (!release || typeof release.version !== 'string' || !release.version) return;
     this.evaluate(release);
+    if (typeof News !== 'undefined') News.applyNewsImage(release.version);
     if (release.apk && release.apk.url) {
       this.setStatus('');
     } else {
@@ -139,6 +141,11 @@ const ReleaseSync = {
     });
   },
 
+  bindCheckButton() {
+    const btn = document.getElementById('status-check-btn');
+    if (btn) btn.addEventListener('click', () => Download.checkAgain());
+  },
+
   setBadge(show) {
     const badge = document.getElementById('update-badge');
     if (!badge) return;
@@ -148,13 +155,18 @@ const ReleaseSync = {
   setStatus(message, warn) {
     const el = document.getElementById('release-status');
     if (!el) return;
+    const textEl = document.getElementById('release-status-text');
+    const btn = document.getElementById('status-check-btn');
     if (!message) {
-      el.textContent = '';
+      if (textEl) textEl.textContent = '';
+      if (btn) btn.hidden = true;
       el.hidden = true;
       el.classList.remove('warn');
       return;
     }
-    el.textContent = message;
+    if (textEl) textEl.textContent = message;
+    else el.textContent = message;
+    if (btn) btn.hidden = !warn;
     el.hidden = false;
     el.classList.toggle('warn', !!warn);
   },

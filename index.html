@@ -145,13 +145,14 @@
       <div class="notes-card reveal">
         <h3>Latest Release <span data-version style="color:var(--accent2)"></span><span class="update-badge" id="update-badge" hidden title="A new update is available. Click to dismiss.">New Update</span></h3>
         <div class="release-subtitle" data-title></div>
+        <img id="news-image" alt="" hidden>
         <div class="notes-body" id="notes-body">
           <div class="skeleton" style="height:14px;width:80%;margin-bottom:12px"></div>
           <div class="skeleton" style="height:14px;width:60%;margin-bottom:12px"></div>
           <div class="skeleton" style="height:14px;width:70%"></div>
         </div>
         <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <a id="changelog-link" data-release-url href="https://github.com/vickyhubhai/Ariya/releases" target="_blank" rel="noopener" class="btn-secondary" style="display:inline-flex;font-size:.85rem;padding:10px 20px">
+          <a id="changelog-link" data-news-content-link href="https://github.com/vickyhubhai/Ariya_news/tree/neww/content" target="_blank" rel="noopener" class="btn-secondary" style="display:inline-flex;font-size:.85rem;padding:10px 20px">
             View Changelog
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
@@ -173,7 +174,7 @@
       </div>
       <div id="error-banner" class="error-banner">
         <p id="error-text"></p>
-        <button class="btn-secondary" style="margin-top:14px;font-size:.82rem;padding:8px 16px" onclick="Download.fetchRelease()">Try Again</button>
+        <button class="btn-secondary" style="margin-top:14px;font-size:.82rem;padding:8px 16px" onclick="Download.checkAgain()">Try Again</button>
       </div>
       <div class="release-card reveal">
         <div class="version" data-version>v1.0.0</div>
@@ -202,7 +203,10 @@
           </a>
         </div>
       </div>
-      <div class="release-status" id="release-status" role="status" aria-live="polite" hidden></div>
+      <div class="release-status" id="release-status" role="status" aria-live="polite" hidden>
+        <span id="release-status-text"></span>
+        <button type="button" class="status-btn" id="status-check-btn" hidden>Check again</button>
+      </div>
       <div class="ios-banner" id="ios-banner">
         <h3>Ariya is currently available for Android</h3>
         <p>Ariya is an Android app. iOS support is not available at this time.</p>
@@ -269,6 +273,7 @@
 
   <script src="js/config.js"></script>
   <script src="js/github.js"></script>
+  <script src="js/news.js"></script>
   <script src="js/release-sync.js"></script>
   <script src="js/download.js"></script>
   <script src="js/app.js"></script>

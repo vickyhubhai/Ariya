@@ -43,6 +43,7 @@ const GitHub = {
 
   async _fetchLatest() {
     let latest = null;
+    Debug.log('release api url:', githubConfig.apiLatestReleaseUrl);
 
     try {
       const data = await this.fetchJSON(githubConfig.apiLatestReleaseUrl);
@@ -58,7 +59,9 @@ const GitHub = {
 
     if (latest) return this.parseRelease(latest);
 
-    const listData = await this.fetchJSON(`${githubConfig.apiReleasesUrl}?per_page=30`);
+    const listUrl = `${githubConfig.apiReleasesUrl}?per_page=30`;
+    Debug.log('release list fallback url:', listUrl);
+    const listData = await this.fetchJSON(listUrl);
     if (!Array.isArray(listData)) {
       const e = new Error('Received an invalid response from GitHub.');
       e.code = 'invalid_json';
@@ -175,7 +178,7 @@ const GitHub = {
       contentType: a && typeof a.content_type === 'string' ? a.content_type : ''
     });
 
-    return {
+    const result = {
       version: data.tag_name,
       name: (typeof data.name === 'string' && data.name) || data.tag_name,
       body: typeof data.body === 'string' ? data.body : '',
@@ -188,6 +191,15 @@ const GitHub = {
       assets: assets.map(mapAsset),
       apk: apkAsset ? mapAsset(apkAsset) : null
     };
+
+    Debug.log('latest release tag:', result.version);
+    Debug.log('release html url:', result.htmlUrl);
+    if (result.apk) {
+      Debug.log('apk asset:', result.apk.name);
+      Debug.log('apk browser_download_url:', result.apk.url);
+    }
+
+    return result;
   },
 
   findApk(assets, version) {

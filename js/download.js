@@ -13,8 +13,18 @@ const Download = {
     this.btn?.addEventListener('click', () => this.startDownload());
     this.btnMobile?.addEventListener('click', () => this.startDownload());
 
+    const changelogLink = document.getElementById('changelog-link');
+    if (changelogLink) {
+      changelogLink.addEventListener('click', e => {
+        e.preventDefault();
+        if (typeof ReleaseSync !== 'undefined') ReleaseSync.acknowledge();
+        this.viewChangelog();
+      });
+    }
+
     this.detectOS();
     GitHub.applyRepoLinks();
+    News.applyLinks();
   },
 
   detectOS() {
@@ -51,7 +61,8 @@ const Download = {
           if (typeof ReleaseSync !== 'undefined') ReleaseSync.onFetchError(err, false);
         } else {
           this.setState('error');
-          this.showError((err && err.message) || 'Unable to check for new releases.');
+          const generic = err && ['network', 'timeout', 'offline', 'server_error', 'invalid_json', 'http'].includes(err.code);
+          this.showError(generic ? 'Unable to load the latest release.' : ((err && err.message) || 'Unable to load the latest release.'));
         }
       } finally {
         this._fetching = null;
@@ -78,11 +89,14 @@ const Download = {
     const notesBody = document.getElementById('notes-body');
     if (notesBody) {
       const body = r.body || '';
-      if (notesBody.dataset.body !== body) {
+      const keepChangelog = notesBody.dataset.view === 'changelog' && notesBody.dataset.relver === r.version;
+      if (!keepChangelog && (notesBody.dataset.body !== body || notesBody.dataset.view !== 'release')) {
         notesBody.innerHTML = body
           ? GitHub.renderMarkdown(body)
           : '<em style="color:var(--text3)">No release notes available.</em>';
         notesBody.dataset.body = body;
+        notesBody.dataset.view = 'release';
+        notesBody.dataset.relver = r.version;
       }
     }
 
@@ -99,6 +113,50 @@ const Download = {
     }
   },
 
+  async viewChangelog() {
+    const notesBody = document.getElementById('notes-body');
+    if (!notesBody) return;
+
+    if (!this.release) {
+      await this.fetchRelease();
+      if (!this.release) {
+        notesBody.innerHTML = '<em style="color:var(--text3)">Changelog is not available for this release.</em>';
+        return;
+      }
+    }
+
+    const version = this.release.version;
+    notesBody.dataset.body = '';
+    notesBody.dataset.view = 'changelog';
+    notesBody.dataset.relver = version;
+    notesBody.innerHTML = '<em style="color:var(--text3)">Loading changelog...</em>';
+
+    let result;
+    try {
+      result = await News.resolveChangelog(version, { force: true });
+    } catch (err) {
+      const notFound = err && (err.code === 'not_found');
+      notesBody.innerHTML = notFound
+        ? '<em style="color:var(--text3)">Changelog is not available for this release.</em>'
+        : '<em style="color:var(--text3)">Unable to load the changelog. Please try again.</em>';
+      Debug.log('changelog load failed:', err && err.code);
+      return;
+    }
+
+    if (result.found && result.markdown) {
+      notesBody.innerHTML = GitHub.renderMarkdown(result.markdown);
+      Debug.log('changelog loaded for', version, '->', result.url);
+    } else {
+      notesBody.innerHTML = '<em style="color:var(--text3)">Changelog is not available for this release.</em>';
+      Debug.log('no changelog found for', version);
+    }
+  },
+
+  async checkAgain() {
+    News.invalidate();
+    await this.fetchRelease({ background: true, force: true });
+  },
+
   async startDownload() {
     if (this.state === 'loading') return;
 
@@ -110,7 +168,8 @@ const Download = {
         this.populateUI();
       } catch (err) {
         this.setState('error');
-        this.showError((err && err.message) || 'Unable to check for new releases.');
+        const generic = err && ['network', 'timeout', 'offline', 'server_error', 'invalid_json', 'http'].includes(err.code);
+        this.showError(generic ? 'Unable to load the latest release.' : ((err && err.message) || 'Unable to load the latest release.'));
         return;
       }
     }
