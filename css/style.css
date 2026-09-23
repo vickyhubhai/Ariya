@@ -126,11 +126,19 @@ section{padding:110px 0;position:relative;z-index:1}
 .release-card .info .label{font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
 .release-card .info .value{font-size:.95rem;font-weight:600}
 .release-card .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.update-badge{display:inline-flex;align-items:center;margin-left:10px;padding:3px 10px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--green),#10b981);color:#03231a;font-size:.62rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;vertical-align:middle;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 12px rgba(52,211,153,.35)}
+.update-badge:hover{transform:scale(1.06);box-shadow:0 0 18px rgba(52,211,153,.5)}
+.update-badge[hidden]{display:none}
+.release-status{margin-top:18px;text-align:center;font-size:.8rem;color:var(--text3);line-height:1.6}
+.release-status.warn{color:var(--amber)}
+.release-status[hidden]{display:none}
 
 /* NOTES */
 .notes-card{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:36px;max-width:700px;margin:0 auto;position:relative;overflow:hidden}
 .notes-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
 .notes-card h3{font-size:1.2rem;font-weight:600;margin-bottom:18px}
+.release-subtitle{font-size:.85rem;color:var(--text3);font-weight:500;margin:-10px 0 14px}
+.release-subtitle:empty{display:none}
 .notes-body{color:var(--text2);font-size:.9rem;line-height:1.85;white-space:pre-wrap}
 .notes-body strong{color:var(--text);font-weight:600}
 .notes-body a{color:var(--accent2);text-decoration:underline;text-underline-offset:2px}
@@ -165,8 +173,12 @@ footer .copy{color:var(--text3);font-size:.82rem}
 .error-banner p{color:var(--red);font-size:.88rem}
 
 /* TOAST */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 28px;font-size:.85rem;z-index:200;transition:transform .4s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow);pointer-events:none;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.toast.show{transform:translateX(-50%) translateY(0)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 28px;font-size:.85rem;z-index:200;transition:transform .4s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow);pointer-events:none;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);max-width:min(92vw,440px);text-align:left}
+.toast.show{transform:translateX(-50%) translateY(0);pointer-events:auto}
+.toast .toast-msg{display:block}
+.toast-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.toast-btn{background:var(--accent);color:#fff;padding:7px 14px;border-radius:var(--radius-full);font-size:.75rem;font-weight:600;transition:background .2s;display:inline-flex;align-items:center}
+.toast-btn:hover{background:var(--accent2)}
 
 /* SKELETON */
 .skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius-sm)}

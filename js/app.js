@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
-      const t = document.querySelector(a.getAttribute('href'));
+      let t = null;
+      try { t = document.querySelector(a.getAttribute('href')); } catch { t = null; }
       if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   Download.init();
+  ReleaseSync.init();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});

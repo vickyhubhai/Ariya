@@ -1,6 +1,8 @@
 const Download = {
   state: 'idle',
   release: null,
+  _fetching: null,
+  _toastTimer: null,
 
   init() {
     this.btn = document.getElementById('download-btn');
@@ -12,7 +14,7 @@ const Download = {
     this.btnMobile?.addEventListener('click', () => this.startDownload());
 
     this.detectOS();
-    this.fetchRelease();
+    GitHub.applyRepoLinks();
   },
 
   detectOS() {
@@ -22,35 +24,79 @@ const Download = {
     if (isIOS && iosBanner) iosBanner.style.display = 'block';
   },
 
-  async fetchRelease() {
-    this.setState('loading');
-    try {
-      this.release = await GitHub.getLatestRelease();
-      this.setState('idle');
-      this.populateUI();
-    } catch (err) {
-      this.setState('error');
-      this.showError(err.message);
-    }
+  async fetchRelease(options = {}) {
+    const background = options.background === true;
+    const force = options.force !== false;
+
+    if (this._fetching) return this._fetching;
+
+    const run = (async () => {
+      if (!background) this.setState('loading');
+      try {
+        const release = await GitHub.getLatestRelease({ force });
+        this.release = release;
+        this.setState('idle');
+        this.hideError();
+        this.populateUI();
+        if (typeof ReleaseSync !== 'undefined') ReleaseSync.onReleaseLoaded(release);
+      } catch (err) {
+        const cached = GitHub.loadCachedRelease();
+        if (cached) {
+          this.release = cached;
+          this.setState('idle');
+          this.hideError();
+          this.populateUI();
+          if (typeof ReleaseSync !== 'undefined') ReleaseSync.onFetchError(err, true);
+        } else if (background) {
+          if (typeof ReleaseSync !== 'undefined') ReleaseSync.onFetchError(err, false);
+        } else {
+          this.setState('error');
+          this.showError((err && err.message) || 'Unable to check for new releases.');
+        }
+      } finally {
+        this._fetching = null;
+      }
+    })();
+
+    this._fetching = run;
+    return run;
   },
 
   populateUI() {
     if (!this.release) return;
     const r = this.release;
 
-    document.querySelectorAll('[data-version]').forEach(el => el.textContent = r.version);
-    document.querySelectorAll('[data-date]').forEach(el => el.textContent = GitHub.formatDate(r.publishedAt));
-    document.querySelectorAll('[data-size]').forEach(el => el.textContent = GitHub.formatSize(r.apk.size));
+    document.querySelectorAll('[data-version]').forEach(el => { el.textContent = r.version; });
+    document.querySelectorAll('[data-date]').forEach(el => { el.textContent = GitHub.formatDate(r.publishedAt); });
+    document.querySelectorAll('[data-size]').forEach(el => {
+      el.textContent = r.apk && r.apk.size ? GitHub.formatSize(r.apk.size) : 'Unknown';
+    });
+    document.querySelectorAll('[data-title]').forEach(el => {
+      el.textContent = r.name || r.version || '';
+    });
 
     const notesBody = document.getElementById('notes-body');
-    if (notesBody && r.body) {
-      notesBody.innerHTML = GitHub.renderMarkdown(r.body);
-    } else if (notesBody) {
-      notesBody.innerHTML = '<em style="color:var(--text3)">No release notes available.</em>';
+    if (notesBody) {
+      const body = r.body || '';
+      if (notesBody.dataset.body !== body) {
+        notesBody.innerHTML = body
+          ? GitHub.renderMarkdown(body)
+          : '<em style="color:var(--text3)">No release notes available.</em>';
+        notesBody.dataset.body = body;
+      }
     }
 
-    const notesLink = document.getElementById('notes-link');
-    if (notesLink) notesLink.href = r.htmlUrl;
+    document.querySelectorAll('[data-release-url]').forEach(a => {
+      if (r.htmlUrl) a.href = r.htmlUrl;
+    });
+
+    const hasApk = !!(r.apk && r.apk.url);
+    if (!hasApk && this.state !== 'loading') {
+      [this.btn, this.btnMobile].filter(Boolean).forEach(btn => {
+        const text = btn.querySelector('.btn-text');
+        if (text) text.textContent = 'APK Unavailable';
+      });
+    }
   },
 
   async startDownload() {
@@ -59,18 +105,18 @@ const Download = {
     if (!this.release) {
       this.setState('loading');
       try {
-        this.release = await GitHub.getLatestRelease();
+        this.release = await GitHub.getLatestRelease({ force: true });
         this.setState('idle');
         this.populateUI();
       } catch (err) {
         this.setState('error');
-        this.showError(err.message);
+        this.showError((err && err.message) || 'Unable to check for new releases.');
         return;
       }
     }
 
     if (!this.release?.apk?.url) {
-      this.showError('No APK available for download.');
+      this.showError('APK is not available for this release.');
       return;
     }
 
@@ -86,6 +132,7 @@ const Download = {
       link.click();
       document.body.removeChild(link);
 
+      if (typeof ReleaseSync !== 'undefined') ReleaseSync.acknowledge();
       this.showToast(`Downloading ${this.release.apk.name}...`);
       setTimeout(() => this.setState('idle'), 2000);
     } catch {
@@ -135,11 +182,53 @@ const Download = {
     this.errorBanner?.classList.remove('show');
   },
 
-  showToast(msg) {
+  showToast(msg, actions) {
     const toast = document.getElementById('toast');
     if (!toast) return;
-    toast.textContent = msg;
+
+    clearTimeout(this._toastTimer);
+    toast.textContent = '';
+
+    const msgEl = document.createElement('span');
+    msgEl.className = 'toast-msg';
+    msgEl.textContent = msg;
+    toast.appendChild(msgEl);
+
+    if (actions && actions.length) {
+      const wrap = document.createElement('div');
+      wrap.className = 'toast-actions';
+      actions.forEach(action => {
+        let el;
+        if (action.href) {
+          el = document.createElement('a');
+          el.href = action.href;
+          el.target = '_blank';
+          el.rel = 'noopener';
+        } else {
+          el = document.createElement('button');
+          el.type = 'button';
+        }
+        el.className = 'toast-btn';
+        el.textContent = action.label;
+        el.addEventListener('click', () => {
+          this.hideToast();
+          if (typeof action.onClick === 'function') action.onClick();
+        });
+        wrap.appendChild(el);
+      });
+      toast.appendChild(wrap);
+    }
+
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
+    this._toastTimer = setTimeout(
+      () => this.hideToast(),
+      actions && actions.length ? 10000 : 3000
+    );
+  },
+
+  hideToast() {
+    clearTimeout(this._toastTimer);
+    const toast = document.getElementById('toast');
+    if (toast) toast.classList.remove('show');
   }
 };
