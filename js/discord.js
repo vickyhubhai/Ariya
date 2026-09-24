@@ -154,9 +154,13 @@ const Discord = {
   },
 
   startNewsWatcher() {
-    this.checkNews();
-    clearInterval(this._newsTimer);
-    this._newsTimer = setInterval(() => this.checkNews(), discordConfig.newsCheckInterval);
+    const boot = () => {
+      this.checkNews();
+      clearInterval(this._newsTimer);
+      this._newsTimer = setInterval(() => this.checkNews(), discordConfig.newsCheckInterval);
+    };
+    if (document.readyState === 'complete') boot();
+    else window.addEventListener('load', boot, { once: true });
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') this.checkNews();
     });

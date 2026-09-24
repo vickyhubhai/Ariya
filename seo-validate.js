@@ -48,13 +48,17 @@ const faqQuestions = ld ? JSON.stringify(ld['@graph'].find(n => n['@type'] === '
 check('FAQ summary count matches schema', faqSummarys === faqQuestions, 'summary=' + faqSummarys + ' schema=' + faqQuestions);
 
 check('scripts deferred', (html.match(/<script src="js\/[^"]+" defer><\/script>/g) || []).length === 7);
-check('preconnect github api', html.includes('rel="preconnect" href="https://api.github.com"'));
+check('no unnecessary preconnects', !html.includes('rel="preconnect"'));
 check('main landmark', html.includes('<main id="main">') && html.includes('</main>'));
 check('skip link', html.includes('class="skip-link"'));
 check('hero logo width/height', html.includes('class="hero-logo" width="240" height="240"'));
+check('critical css inlined', html.includes('id="critical-css"'));
+check('css async loaded', html.includes('as="style"'));
+check('ad reserved space', html.includes('class="container ad-slot"'));
+check('adsense script once', (html.match(/pagead2\.googlesyndication/g) || []).length === 1);
 check('404 noindex', notfound.includes('noindex, nofollow'));
 check('manifest id/scope', fs.readFileSync('manifest.json', 'utf8').includes('"scope"'));
-check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v6'));
+check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v7'));
 check('google verification kept', html.includes('google-site-verification'));
 check('html lang', html.includes('<html lang="en">'));
 

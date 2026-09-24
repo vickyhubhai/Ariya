@@ -1,10 +1,13 @@
-const CACHE = 'ariya-dl-v6';
+const CACHE = 'ariya-dl-v7';
 const ASSETS = [
   '/', '/index.html', '/css/style.css',
   '/js/config.js', '/js/github.js', '/js/news.js', '/js/discord.js',
   '/js/release-sync.js', '/js/download.js', '/js/app.js',
   '/manifest.json',
-  '/assets/ariya-logo-64.png', '/assets/ariya-logo-240.png'
+  '/assets/ariya-logo-64.png', '/assets/ariya-logo-240.png',
+  '/assets/ariya-logo-64.webp', '/assets/ariya-logo-120.webp',
+  '/assets/ariya-logo-180.webp', '/assets/ariya-logo-240.webp',
+  '/assets/ariya-logo-320.webp'
 ];
 
 self.addEventListener('install', e => {

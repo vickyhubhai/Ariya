@@ -1,4 +1,4 @@
-const ReleaseSync = {
+﻿const ReleaseSync = {
   intervalId: null,
   initialized: false,
 
@@ -21,15 +21,26 @@ const ReleaseSync = {
       this.setStatus("You're offline. Showing the last available release.", true);
     }
 
-    Download.fetchRelease();
+    const startFetch = () => {
+      Download.fetchRelease({ background: true, force: false });
+      this.intervalId = setInterval(() => {
+        if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+          this.setStatus("You're offline. Showing the last available release.", true);
+          return;
+        }
+        Download.fetchRelease({ background: true, force: true });
+      }, githubConfig.releaseCheckInterval);
+    };
 
-    this.intervalId = setInterval(() => {
-      if (typeof navigator !== 'undefined' && navigator.onLine === false) {
-        this.setStatus("You're offline. Showing the last available release.", true);
-        return;
-      }
-      Download.fetchRelease({ background: true, force: true });
-    }, githubConfig.releaseCheckInterval);
+    if (document.readyState === 'complete') {
+      const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+      idle(startFetch, { timeout: 3000 });
+    } else {
+      window.addEventListener('load', () => {
+        const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+        idle(startFetch, { timeout: 3000 });
+      }, { once: true });
+    }
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {

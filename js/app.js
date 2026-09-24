@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
   const nav = document.querySelector('nav');
   let navTick = false;
   window.addEventListener('scroll', () => {
@@ -19,14 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => revealObs.observe(el));
 
-  // 3D tilt — fine pointers only (no cost on touch), rAF-throttled
   const canTilt = matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (canTilt) {
     const attachTilt = (el, maxYaw, maxPitch) => {
@@ -54,9 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Particles — single reflow via DocumentFragment
-  const pWrap = document.getElementById('particles');
-  if (pWrap) {
+  Download.init();
+  ReleaseSync.init();
+  Discord.init();
+
+  const startParticles = () => {
+    const pWrap = document.getElementById('particles');
+    if (!pWrap || pWrap.childElementCount) return;
     const frag = document.createDocumentFragment();
     for (let i = 0; i < 30; i++) {
       const p = document.createElement('div');
@@ -69,13 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
       frag.appendChild(p);
     }
     pWrap.appendChild(frag);
+  };
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(startParticles, { timeout: 2000 });
+  } else {
+    window.addEventListener('load', startParticles, { once: true });
   }
 
-  Download.init();
-  ReleaseSync.init();
-  Discord.init();
-
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }, { once: true });
   }
 });
