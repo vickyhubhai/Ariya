@@ -49,6 +49,7 @@ const ReleaseSync = {
   onReleaseLoaded(release) {
     if (!release || typeof release.version !== 'string' || !release.version) return;
     this.evaluate(release);
+    if (typeof Discord !== 'undefined') Discord.announceRelease(release);
     if (typeof News !== 'undefined') News.applyNewsImage(release.version);
     if (release.apk && release.apk.url) {
       this.setStatus('');

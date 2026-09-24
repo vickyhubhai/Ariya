@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   Download.init();
   ReleaseSync.init();
+  Discord.init();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});

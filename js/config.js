@@ -59,6 +59,25 @@ const newsConfig = {
   }
 };
 
+const discordConfig = {
+  supportUrl: 'https://discord.gg/CxMV79wrMP',
+  updatesWebhook: 'https://discord.com/api/webhooks/1552604999308025866/qH_HHjO2r1XRGBLxnixJ1qJQ7pHVe1qQcgCPQT36zpAlwp7EcUZI0yGAAk-iHqThLplh',
+  bugWebhook: 'https://discord.com/api/webhooks/1552605324731482132/FO-oXFmM1M-rXKCHuDwoHjOJBfTiO12As2c9U-EcRWHl_K-kcsK0SmL4fQcDN-quq5c9',
+  avatarUrl: 'https://ariya.app/assets/icon-512.png',
+  updatesUsername: 'Ariya Updates',
+  bugUsername: 'Ariya Reports',
+  newsCheckInterval: 5 * 60 * 1000,
+  announceIfPublishedWithinDays: 7,
+  bugCooldownMs: 30 * 1000,
+  bugMinLength: 10,
+  bugMaxLength: 1000,
+  storageKeys: {
+    announcedRelease: 'ariya_disc_announced_release_v1',
+    announcedNews: 'ariya_disc_announced_news_v1',
+    bugCooldown: 'ariya_disc_bug_cooldown_v1'
+  }
+};
+
 const Debug = (() => {
   let enabled;
   if (typeof githubConfig.debug === 'boolean') {
