@@ -38,4 +38,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://ariya.app/sitemap.xml
+Sitemap: https://ariyamusic.us.ci/sitemap.xml

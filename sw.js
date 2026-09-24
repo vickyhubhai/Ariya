@@ -1,4 +1,4 @@
-const CACHE = 'ariya-dl-v4';
+const CACHE = 'ariya-dl-v5';
 const ASSETS = ['/', '/index.html', '/css/style.css', '/js/config.js', '/js/github.js', '/js/news.js', '/js/discord.js', '/js/release-sync.js', '/js/download.js', '/js/app.js', '/manifest.json'];
 
 self.addEventListener('install', e => {

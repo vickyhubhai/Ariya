@@ -191,9 +191,10 @@ const News = {
     if (!img || !version) return;
 
     let src = '';
+    let item = null;
     try {
       const items = await this.getMetadata({ force: false });
-      const item = this.findItemForVersion(items, version);
+      item = this.findItemForVersion(items, version);
       if (item) {
         let raw = item.ImageURL;
         if (typeof raw === 'string') raw = [raw];
@@ -203,11 +204,13 @@ const News = {
       }
     } catch {
       src = '';
+      item = null;
     }
 
     if (!src) {
       img.hidden = true;
       img.removeAttribute('src');
+      img.alt = '';
       return;
     }
 
@@ -218,8 +221,9 @@ const News = {
 
     Debug.log('news image url:', src);
     img.hidden = true;
+    img.alt = item && (item.Title || item.title) ? String(item.Title || item.title) : 'Ariya release image';
     img.onload = () => { img.hidden = false; };
-    img.onerror = () => { img.hidden = true; img.removeAttribute('src'); };
+    img.onerror = () => { img.hidden = true; img.removeAttribute('src'); img.alt = ''; };
     img.src = src;
   }
 };

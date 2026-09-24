@@ -14,7 +14,7 @@ Ariya is free and open source (MIT license). It requires Android 8.0 (Oreo) or l
 - Lyrics: Synced lyrics
 - License: MIT (open source)
 - Support: Discord https://discord.gg/CxMV79wrMP
-- Bug reports: https://ariya.app/#support
+- Bug reports: https://ariyamusic.us.ci/#support
 
 ## Download
 
@@ -24,9 +24,9 @@ Ariya is free and open source (MIT license). It requires Android 8.0 (Oreo) or l
 
 ## Website
 
-- Home: https://ariya.app/
-- Features: https://ariya.app/#features
-- What's New: https://ariya.app/#whats-new
-- Download: https://ariya.app/#download
-- FAQ: https://ariya.app/#faq
-- Support: https://ariya.app/#support
+- Home: https://ariyamusic.us.ci/
+- Features: https://ariyamusic.us.ci/#features
+- What's New: https://ariyamusic.us.ci/#whats-new
+- Download: https://ariyamusic.us.ci/#download
+- FAQ: https://ariyamusic.us.ci/#faq
+- Support: https://ariyamusic.us.ci/#support
