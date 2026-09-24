@@ -1,0 +1,32 @@
+# Ariya
+
+> Ariya is a free, open-source modern Android music player with a beautiful interface, synced lyrics, FLAC lossless audio, playlists, queue controls, and music discovery from multiple sources.
+
+Ariya is free and open source (MIT license). It requires Android 8.0 (Oreo) or later, supports arm64/armv7/x86/x86_64, and needs about 30 MB of free storage. It is currently Android-only; iOS is not supported.
+
+## Key facts
+
+- Name: Ariya (Ariya Music Player)
+- Price: Free (0 USD)
+- Platform: Android 8.0+
+- Category: Music / Audio player
+- Audio: FLAC lossless, gapless playback, crossfade, low to ultra-high quality
+- Lyrics: Synced lyrics
+- License: MIT (open source)
+- Support: Discord https://discord.gg/CxMV79wrMP
+- Bug reports: https://ariya.app/#support
+
+## Download
+
+- Latest release: https://github.com/vickyhubhai/Ariya/releases/latest
+- All releases: https://github.com/vickyhubhai/Ariya/releases
+- Source code: https://github.com/vickyhubhai/Ariya
+
+## Website
+
+- Home: https://ariya.app/
+- Features: https://ariya.app/#features
+- What's New: https://ariya.app/#whats-new
+- Download: https://ariya.app/#download
+- FAQ: https://ariya.app/#faq
+- Support: https://ariya.app/#support
