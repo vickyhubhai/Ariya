@@ -13,20 +13,20 @@ Ariya is free and open source (MIT license). It requires Android 8.0 (Oreo) or l
 - Audio: FLAC lossless, gapless playback, crossfade, low to ultra-high quality
 - Lyrics: Synced lyrics
 - License: MIT (open source)
-- Support: Discord https://discord.gg/CxMV79wrMP
-- Bug reports: https://ariyamusic.us.ci/#support
+- Support: [Discord](https://discord.gg/CxMV79wrMP)
+- Bug reports: [Support form](https://ariyamusic.us.ci/#support)
 
 ## Download
 
-- Latest release: https://github.com/vickyhubhai/Ariya/releases/latest
-- All releases: https://github.com/vickyhubhai/Ariya/releases
-- Source code: https://github.com/vickyhubhai/Ariya
+- Latest release: [Latest Release](https://github.com/vickyhubhai/Ariya/releases/latest)
+- All releases: [All Releases](https://github.com/vickyhubhai/Ariya/releases)
+- Source code: [GitHub Repository](https://github.com/vickyhubhai/Ariya)
 
 ## Website
 
-- Home: https://ariyamusic.us.ci/
-- Features: https://ariyamusic.us.ci/#features
-- What's New: https://ariyamusic.us.ci/#whats-new
-- Download: https://ariyamusic.us.ci/#download
-- FAQ: https://ariyamusic.us.ci/#faq
-- Support: https://ariyamusic.us.ci/#support
+- Home: [https://ariyamusic.us.ci/](https://ariyamusic.us.ci/)
+- Features: [Features](https://ariyamusic.us.ci/#features)
+- What's New: [What's New](https://ariyamusic.us.ci/#whats-new)
+- Download: [Download](https://ariyamusic.us.ci/#download)
+- FAQ: [FAQ](https://ariyamusic.us.ci/#faq)
+- Support: [Support](https://ariyamusic.us.ci/#support)

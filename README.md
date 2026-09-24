@@ -270,3 +270,9 @@ Release versions follow semantic versioning where applicable:
 
 ```text
 MAJOR.MINOR.PATCH
+
+## Recent Updates
+
+- Addressed 8 usability heuristics issues: improved type scale, border radii consistency, form alignment, button styles, visual hierarchy in What's New section, footer alignment, feature card spacing, and system requirement grouping.
+- Added and configured `llms.txt` for agent discoverability.
+- Optimized images and performance for mobile (improved FCP and LCP scores).
