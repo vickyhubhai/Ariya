@@ -23,7 +23,7 @@ check('canonical = new domain', html.includes('<link rel="canonical" href="https
 check('og:url = new domain', html.includes('<meta property="og:url" content="https://ariyamusic.us.ci/">'));
 check('robots sitemap = new domain', robots.includes('Sitemap: https://ariyamusic.us.ci/sitemap.xml'));
 check('sitemap loc = new domain', sitemap.includes('<loc>https://ariyamusic.us.ci/</loc>'));
-check('llms home = new domain', llms.includes('- Home: https://ariyamusic.us.ci/'));
+check('llms home = new domain', llms.includes('https://ariyamusic.us.ci/'));
 
 const ldMatch = html.match(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/);
 check('JSON-LD present', !!ldMatch);
@@ -51,10 +51,10 @@ check('scripts deferred', (html.match(/<script src="js\/[^"]+" defer><\/script>/
 check('preconnect github api', html.includes('rel="preconnect" href="https://api.github.com"'));
 check('main landmark', html.includes('<main id="main">') && html.includes('</main>'));
 check('skip link', html.includes('class="skip-link"'));
-check('hero logo width/height', html.includes('class="hero-logo" width="1254" height="1254"'));
+check('hero logo width/height', html.includes('class="hero-logo" width="240" height="240"'));
 check('404 noindex', notfound.includes('noindex, nofollow'));
 check('manifest id/scope', fs.readFileSync('manifest.json', 'utf8').includes('"scope"'));
-check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v5'));
+check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v6'));
 check('google verification kept', html.includes('google-site-verification'));
 check('html lang', html.includes('<html lang="en">'));
 

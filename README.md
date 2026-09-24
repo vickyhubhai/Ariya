@@ -36,6 +36,8 @@
 
 **Ariya** is a modern Android music player built with a strong focus on simplicity, performance, audio quality, and a polished user experience.
 
+Website: [https://ariyamusic.us.ci/](https://ariyamusic.us.ci/)
+
 Ariya brings music discovery, playback, lyrics, playlists, queue management, multiple audio sources, lossless audio support, and Discord integration together in one clean interface.
 
 The goal of Ariya is simple:
@@ -270,9 +272,11 @@ Release versions follow semantic versioning where applicable:
 
 ```text
 MAJOR.MINOR.PATCH
+```
 
 ## Recent Updates
 
 - Addressed 8 usability heuristics issues: improved type scale, border radii consistency, form alignment, button styles, visual hierarchy in What's New section, footer alignment, feature card spacing, and system requirement grouping.
 - Added and configured `llms.txt` for agent discoverability.
 - Optimized images and performance for mobile (improved FCP and LCP scores).
+
