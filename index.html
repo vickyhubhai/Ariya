@@ -82,14 +82,14 @@
         "url": "https://ariyamusic.us.ci/",
         "downloadUrl": "https://github.com/vickyhubhai/Ariya/releases/latest",
         "image": "https://ariyamusic.us.ci/assets/icon-512.png",
-        "description": "Ariya is a modern, free Android music player with a beautiful interface, synced lyrics, FLAC lossless audio support, playlists, queue controls, and music discovery from multiple sources.",
+        "description": "Ariya is a modern, free and open-source Android music player focused on a beautiful interface, powerful playback controls, high-quality audio, lyrics, discovery, and a smooth listening experience.",
         "isAccessibleForFree": true,
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
         },
-        "featureList": "Synced lyrics, FLAC lossless audio, playlists, queue management, crossfade, gapless playback, music discovery, Discord integration",
+        "featureList": "Glass/Haze UI, synced lyrics, FLAC lossless audio, playlists, queue management, crossfade, gapless playback, music discovery, Discord rich presence, customizable settings, in-app update checking",
         "softwareHelp": {
           "@type": "HelpPage",
           "url": "https://ariyamusic.us.ci/#support"
@@ -179,6 +179,7 @@
         <a href="#download">Download</a>
         <a href="#faq">FAQ</a>
         <a href="#support">Support</a>
+        <a href="/about">About</a>
         <a href="https://github.com/vickyhubhai/Ariya" target="_blank" rel="noopener" data-repo-link>GitHub</a>
         <a href="#download" class="dl-btn">Download</a>
       </div>
@@ -202,7 +203,7 @@
       </div>
       <h1><span class="gradient">Ariya</span></h1>
       <p class="tagline">Modern music. Beautifully simple.</p>
-      <p class="desc">An elegant and powerful music experience for Android. Discover, play, and organize your music with a stunning interface.</p>
+      <p class="desc">A modern, free and open-source Android music player built for a beautiful and seamless listening experience. Discover music, enjoy high-quality playback, synced lyrics, powerful queue controls, playlists, and more.</p>
       <div class="btns">
         <a href="#download" class="btn-primary" id="download-btn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -214,7 +215,7 @@
         </a>
       </div>
       <div class="hero-meta">
-        <span class="item" data-version>v1.0.0</span>
+        <span class="item" data-version>v1.1.0</span>
         <span class="dot"></span>
         <span class="item">Android 8.0+</span>
         <span class="dot"></span>
@@ -239,12 +240,12 @@
         <div class="feature-card reveal reveal-delay-2">
           <div class="feature-icon">&#128269;</div>
           <h3>Music Discovery</h3>
-          <p>Discover new music through multiple audio sources and explore trending tracks, new releases, and curated playlists.</p>
+          <p>Search and discover music through multiple audio sources. Explore trending tracks, new releases, artists, albums, playlists, and your listening history.</p>
         </div>
         <div class="feature-card reveal reveal-delay-3">
           <div class="feature-icon">&#9835;</div>
           <h3>Lyrics</h3>
-          <p>Follow along with synced lyrics while you listen. Never miss a word of your favorite songs.</p>
+          <p>Follow along with synced lyrics while you listen. Configurable lyrics API support with fallback sources and improved lyrics processing.</p>
         </div>
         <div class="feature-card reveal reveal-delay-1">
           <div class="feature-icon">&#127925;</div>
@@ -259,12 +260,12 @@
         <div class="feature-card reveal reveal-delay-3">
           <div class="feature-icon">&#9881;</div>
           <h3>Audio Quality</h3>
-          <p>Choose from multiple audio quality options from low to ultra-high. Detailed codec and bitrate information when available.</p>
+          <p>Choose from multiple audio quality options from low to ultra-high. Codec and bitrate details with high-quality audio source selection.</p>
         </div>
         <div class="feature-card reveal reveal-delay-1">
           <div class="feature-icon">&#9833;</div>
-          <h3>Queue & Controls</h3>
-          <p>Full queue management with drag-to-reorder, play next, shuffle, repeat, and seamless track transitions.</p>
+          <h3>Queue &amp; Controls</h3>
+          <p>Full queue management with drag-to-reorder, play next, shuffle, repeat, safer UID-based queue operations, and seamless track transitions.</p>
         </div>
         <div class="feature-card reveal reveal-delay-2">
           <div class="feature-icon">&#127760;</div>
@@ -274,7 +275,27 @@
         <div class="feature-card reveal reveal-delay-3">
           <div class="feature-icon">&#128172;</div>
           <h3>Discord Integration</h3>
-          <p>Share what you're listening to with your Discord community through rich presence integration.</p>
+          <p>Share what you're listening to with your Discord community through rich presence that shows your currently playing music.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon">&#10024;</div>
+          <h3>Glass / Haze UI</h3>
+          <p>A modern Glass/Haze visual design with adaptive glass surfaces and borders, smooth transitions and animations, and configurable glass opacity and blur.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-icon">&#9196;</div>
+          <h3>Advanced Player</h3>
+          <p>Full-screen and mini-player experience with dynamic artwork and backgrounds, gapless playback, crossfade, and media-session integrated playback controls.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-icon">&#127899;</div>
+          <h3>Settings &amp; Customization</h3>
+          <p>Customizable appearance with glass opacity and blur controls, audio and playback preferences, and an improved settings interface.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon">&#128260;</div>
+          <h3>Updates</h3>
+          <p>GitHub-based release updates with in-app update checking and release changelog support, so you always know what's new.</p>
         </div>
       </div>
     </div>
@@ -291,9 +312,16 @@
         <h3>Latest Release <span data-version style="color:var(--accent2)"></span><span class="update-badge" id="update-badge" hidden title="A new update is available. Click to dismiss.">New Update</span></h3>
         <div class="release-subtitle" data-title></div>
         <div class="notes-body" id="notes-body">
-          <div class="skeleton" style="height:14px;width:80%;margin-bottom:12px"></div>
-          <div class="skeleton" style="height:14px;width:60%;margin-bottom:12px"></div>
-          <div class="skeleton" style="height:14px;width:70%"></div>
+          <strong>v1.1.0 — A major Glass/Haze redesign and stability release</strong>
+  • Full Glass/Haze redesign across the app
+  • Rebuilt activity/app shell architecture
+  • Improved player and queue with safer UID-based operations
+  • Improved lyrics handling with API configuration and fallback
+  • Improved album artwork fallback
+  • Improved networking and Spotify locale handling
+  • Improved Settings UI
+  • Improved Artist, Home, Playlist, Album, and History screens
+  • Stability and lifecycle improvements
         </div>
         <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
           <a id="changelog-link" data-news-content-link href="https://github.com/vickyhubhai/Ariya_news/tree/neww/content" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;font-size:.85rem;padding:10px 20px">
@@ -321,7 +349,7 @@
         <button class="btn-secondary" style="margin-top:14px;font-size:.82rem;padding:8px 16px" onclick="Download.checkAgain()">Try Again</button>
       </div>
       <div class="release-card reveal">
-        <div class="version" data-version>v1.0.0</div>
+        <div class="version" data-version>v1.1.0</div>
         <div class="date">Released <span data-date>loading...</span></div>
         <div class="info">
           <div class="item">
@@ -539,6 +567,7 @@
         <span>Ariya</span>
       </div>
       <div class="links">
+        <a href="/about">About</a>
         <a href="https://github.com/vickyhubhai/Ariya" target="_blank" rel="noopener" data-repo-link>GitHub</a>
         <a href="https://github.com/vickyhubhai/Ariya/releases" target="_blank" rel="noopener" data-repo-releases-link>Releases</a>
         <a href="https://discord.gg/CxMV79wrMP" target="_blank" rel="noopener" data-discord-link>Discord</a>

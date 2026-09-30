@@ -181,7 +181,7 @@ The latest stable version of Ariya is available through GitHub Releases.
 
 ### Latest Stable Release
 
-**Ariya v1.0.0**
+**Ariya v1.1.0**
 
 Download the latest `Ariya.apk` from the [Releases](https://github.com/vickyhubhai/Ariya/releases) page.
 
@@ -276,6 +276,8 @@ MAJOR.MINOR.PATCH
 
 ## Recent Updates
 
+- Added a dedicated **About** page (`/about`) with About navigation in the header/footer.
+- Updated the site to **v1.1.0**: new hero description, expanded Features section (Glass/Haze UI, Advanced Player, Queue Management, Lyrics, Audio Quality, Discovery, Discord, Settings, Updates), and a v1.1.0 What's New summary.
 - Addressed 8 usability heuristics issues: improved type scale, border radii consistency, form alignment, button styles, visual hierarchy in What's New section, footer alignment, feature card spacing, and system requirement grouping.
 - Added and configured `llms.txt` for agent discoverability.
 - Optimized images and performance for mobile (improved FCP and LCP scores).

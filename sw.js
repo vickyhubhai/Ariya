@@ -1,6 +1,7 @@
-const CACHE = 'ariya-dl-v7';
+const CACHE = 'ariya-dl-v8';
 const ASSETS = [
   '/', '/index.html', '/css/style.css',
+  '/about', '/about.html',
   '/js/config.js', '/js/github.js', '/js/news.js', '/js/discord.js',
   '/js/release-sync.js', '/js/download.js', '/js/app.js',
   '/manifest.json',

@@ -4,3 +4,25 @@
 .release-card .date{min-height:1.4em}
 .release-card .info{min-height:2.8em}
 .hero-logo{aspect-ratio:1/1}
+
+/* --- About page --- */
+nav .links a[aria-current="page"]{color:var(--text)}
+nav .links a[aria-current="page"]::after{width:100%}
+.about-hero{min-height:auto;padding:170px 28px 90px}
+.about-hero .desc{max-width:620px}
+.version-chip{display:inline-block;background:var(--accent-soft);border:1px solid rgba(124,92,252,.25);color:var(--accent3);font-size:.8rem;font-weight:700;letter-spacing:.5px;padding:6px 18px;border-radius:var(--radius-full);margin-bottom:20px;font-variant-numeric:tabular-nums}
+.about-section{padding:70px 0}
+.about-section:first-of-type{padding-top:30px}
+.about-panel{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:34px 32px;max-width:760px;margin:0 auto;position:relative;overflow:hidden;transition:border-color .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1)}
+.about-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
+.about-panel:hover{border-color:var(--border2);box-shadow:0 20px 50px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.05)}
+.about-panel h3{font-size:1.05rem;font-weight:600;margin-bottom:10px;letter-spacing:-.2px}
+.about-panel p{color:var(--text2);font-size:.92rem;line-height:1.8}
+.about-panel p+p{margin-top:14px}
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto}
+.about-split .about-panel{height:100%;max-width:none;margin:0}
+.about-bullets{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.about-bullets li{position:relative;padding-left:20px;color:var(--text2);font-size:.9rem;line-height:1.7}
+.about-bullets li::before{content:'\2022';position:absolute;left:4px;color:var(--accent2);font-weight:700}
+.about-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+@media(max-width:768px){.about-hero{padding:150px 24px 60px}.about-section{padding:56px 0}.about-split{grid-template-columns:1fr}.about-panel{padding:26px 22px;backdrop-filter:none;-webkit-backdrop-filter:none}.about-cta .btn-primary,.about-cta .btn-secondary{width:100%;justify-content:center;max-width:320px}}
