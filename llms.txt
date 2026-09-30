@@ -27,7 +27,7 @@ Ariya is free and open source (MIT license). It requires Android 8.0 (Oreo) or l
 ## Website
 
 - Home: [https://ariyamusic.us.ci/](https://ariyamusic.us.ci/)
-- About: [About Ariya](https://ariyamusic.us.ci/about)
+- About: [About Ariya](https://ariyamusic.us.ci/about/)
 - Features: [Features](https://ariyamusic.us.ci/#features)
 - What's New: [What's New](https://ariyamusic.us.ci/#whats-new)
 - Download: [Download](https://ariyamusic.us.ci/#download)

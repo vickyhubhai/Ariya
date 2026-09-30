@@ -58,19 +58,19 @@ check('ad reserved space', html.includes('class="container ad-slot"'));
 check('adsense script once', (html.match(/pagead2\.googlesyndication/g) || []).length === 1);
 check('404 noindex', notfound.includes('noindex, nofollow'));
 check('manifest id/scope', fs.readFileSync('manifest.json', 'utf8').includes('"scope"'));
-check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v8'));
+check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v9'));
 check('google verification kept', html.includes('google-site-verification'));
 check('html lang', html.includes('<html lang="en">'));
 
 const noindexMeta = /<meta name="robots"[^>]*noindex/i.test(html);
 check('index not noindexed', !noindexMeta);
 
-const about = fs.readFileSync('about.html', 'utf8');
+const about = fs.readFileSync('about/index.html', 'utf8');
 check('about page exists', about.length > 0);
-check('about canonical', about.includes('<link rel="canonical" href="https://ariyamusic.us.ci/about">'));
-check('about linked from index nav', html.includes('<a href="/about">About</a>'));
+check('about canonical', about.includes('<link rel="canonical" href="https://ariyamusic.us.ci/about/">'));
+check('about linked from index nav', html.includes('<a href="/about/">About</a>'));
 check('about no hardcoded old version', !about.includes('v1.0.0'));
-check('sitemap includes /about', sitemap.includes('<loc>https://ariyamusic.us.ci/about</loc>'));
+check('sitemap includes /about/', sitemap.includes('<loc>https://ariyamusic.us.ci/about/</loc>'));
 
 console.log('\n' + (fail === 0 ? 'ALL ' + 'CHECKS PASSED' : fail + ' FAILED'));
 process.exit(fail === 0 ? 0 : 1);

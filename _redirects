@@ -1,1 +1,2 @@
-/about /about.html 200
+/about   /about/   301
+/about.html   /about/   301
