@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { usePointerParallax, usePrefersReducedMotion } from '@/lib/hooks';
 import { useRelease } from '@/lib/release-context';
 import { whenIdle } from '@/lib/utils';
+import type { SceneQuality } from './HeroScene';
 
 const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false, loading: () => null });
 
@@ -25,34 +26,40 @@ export default function HeroCanvas() {
   const [mounted, setMounted] = useState(false);
   const [ready, setReady] = useState(false);
   const [inView, setInView] = useState(true);
+  const [quality, setQuality] = useState<SceneQuality>('high');
 
   const enabled = tier === 'high' && !reducedMotion;
 
+  // Park the observer on the host from the first client render, independent of
+  // mounting, so the canvas only initialises while the hero is actually seen.
   useEffect(() => {
-    if (!enabled) return;
+    const el = hostRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver((entries) => setInView(entries[0]?.isIntersecting ?? true), { threshold: 0 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [enabled]);
+
+  useEffect(() => {
+    if (!enabled || !inView || mounted) return;
     let cancelled = false;
     // Never compete with the hero paint / LCP image decode.
     whenIdle(() => {
-      if (!cancelled) setMounted(true);
+      if (cancelled) return;
+      // Narrower viewports get the simplified scene (fewer instances/particles).
+      setQuality(window.innerWidth < 1100 ? 'medium' : 'high');
+      setMounted(true);
     }, 900);
     return () => {
       cancelled = true;
     };
-  }, [enabled]);
-
-  useEffect(() => {
-    const el = hostRef.current;
-    if (!mounted || !el || typeof IntersectionObserver === 'undefined') return;
-    const io = new IntersectionObserver((entries) => setInView(entries[0]?.isIntersecting ?? true), { threshold: 0 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [mounted]);
+  }, [enabled, inView, mounted]);
 
   if (!enabled) return null;
 
   return (
     <div ref={hostRef} className={`hero-canvas${ready ? ' ready' : ''}`} aria-hidden="true">
-      {mounted ? <HeroScene pointer={pointer} frameloop={inView ? 'always' : 'never'} onReady={() => setReady(true)} /> : null}
+      {mounted ? <HeroScene pointer={pointer} frameloop={inView ? 'always' : 'never'} quality={quality} onReady={() => setReady(true)} /> : null}
     </div>
   );
 }

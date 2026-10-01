@@ -205,3 +205,63 @@ nav .links a.is-current::after{width:100%}
 /* ---------- accessibility / no-JS safeguards ---------- */
 @media(prefers-reduced-motion:reduce){.loader-aurora,.loader-disc>img,.loader-disc .loader-ring,.loader-wordmark>span,.btn-primary .dl-fill.indeterminate{animation:none}.loader-wordmark>span{opacity:1;transform:none}}
 .noscript-hidden{display:none}
+
+/* ============================================================
+   UX POLISH LAYER - spacing rhythm, fluid type scale and
+   interaction states. Additive and later in the cascade, so it
+   refines the ported system; its own responsive rules therefore
+   come last to keep the mobile scale correct.
+   ============================================================ */
+:root{
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.5rem;
+  --space-6:2rem;--space-7:2.75rem;--space-8:3.5rem;--space-9:4.5rem;--space-10:6.75rem;
+  --step--1:.78rem;--step-0:.9rem;--step-1:1rem;
+  --step-2:clamp(1.12rem,.98rem + .7vw,1.32rem);
+  --step-3:clamp(1.45rem,1.2rem + 1.4vw,2.05rem);
+  --step-4:clamp(2.1rem,1.5rem + 3vw,4rem);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+/* Headings avoid orphaned words; body copy gets even line breaks. */
+h1,h2,h3,h4{text-wrap:balance}
+p{text-wrap:pretty}
+
+/* ---------- hero type rhythm ---------- */
+.hero h1{font-size:var(--step-4);letter-spacing:-.045em;line-height:1.05;margin-bottom:var(--space-3)}
+.hero .tagline{font-size:var(--step-2);line-height:1.45;margin-bottom:var(--space-2)}
+.hero .desc{font-size:var(--step-1);line-height:1.8;margin-bottom:var(--space-7)}
+.hero .btns{gap:var(--space-4);margin-bottom:var(--space-7)}
+.hero-logo-wrap{margin-bottom:var(--space-6)}
+.hero-meta{gap:var(--space-5)}
+
+/* ---------- section rhythm ---------- */
+section{padding:var(--space-10) 0}
+.section-title{margin-bottom:var(--space-8)}
+.section-title h2{font-size:var(--step-3);letter-spacing:-.03em;line-height:1.18;margin-bottom:var(--space-2)}
+.section-title p{font-size:var(--step-1);line-height:1.7}
+
+/* ---------- focus indicators: one ring for every control ---------- */
+:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+.btn-primary:focus-visible,.btn-secondary:focus-visible{outline:none;box-shadow:0 0 0 4px var(--accent-soft),0 0 0 1px var(--accent)}
+
+/* ---------- press states: transform/opacity only (60fps safe) ---------- */
+.btn-primary:active{transform:translateY(-1px) scale(.98)}
+.btn-secondary:active{transform:translateY(0) scale(.98)}
+.variant-card:active{transform:translateY(0) scale(.99)}
+nav .dl-btn:active{transform:translateY(0) scale(.97)}
+nav .links a{transition:color .2s var(--ease-out),background .2s var(--ease-out)}
+nav .links a::after{transition:width .3s var(--ease-out)}
+
+/* ---------- 3D canvas easing matched to the design system ---------- */
+.hero-canvas{transition:opacity 1.1s var(--ease-out)}
+
+/* ---------- responsive refinements (must stay last in this layer) ---------- */
+@media(max-width:1024px){section{padding:var(--space-9) 0}}
+@media(max-width:768px){
+section{padding:var(--space-8) 0}
+.section-title{margin-bottom:var(--space-7)}
+.hero .desc{margin-bottom:var(--space-6)}
+.hero-meta{gap:var(--space-4)}
+}
+@media(max-width:480px){.hero-logo-wrap{margin-bottom:var(--space-5)}}
+

@@ -94,6 +94,8 @@ export default function Loader() {
   if (removed) return null;
 
   const width = `${Math.max(4, progress)}%`;
+  // Staged captions give the ramp a narrative instead of a static label.
+  const caption = progress >= 100 ? 'Ready' : progress < 30 ? 'Warming up the mix' : progress < 70 ? 'Loading the artwork' : 'Almost there';
 
   return (
     <div
@@ -121,12 +123,14 @@ export default function Loader() {
           ))}
         </div>
 
-        <div className="loader-track">
+        {/* The ramp updates every frame; keep it visual-only so the live
+            region announces just "Loading Ariya" once instead of spamming. */}
+        <div className="loader-track" aria-hidden="true">
           <div className="loader-fill" style={{ width }} />
         </div>
 
-        <div className="loader-meta">
-          <span className="loader-caption">{progress < 100 ? 'Preparing your music' : 'Ready'}</span>
+        <div className="loader-meta" aria-hidden="true">
+          <span className="loader-caption">{caption}</span>
           <span className="loader-pct">{progress}%</span>
         </div>
       </div>
