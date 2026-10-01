@@ -12,6 +12,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  agentRules: false,
 
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -22,6 +23,7 @@ const nextConfig = {
       // Legacy entry points kept working after the migration.
       { source: '/index.html', destination: '/', permanent: true },
       { source: '/about.html', destination: '/about', permanent: true },
+      { source: '/about/index.html', destination: '/about', permanent: true },
       { source: '/404.html', destination: '/404', permanent: true },
     ];
   },

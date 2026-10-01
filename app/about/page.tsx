@@ -70,7 +70,7 @@ export default function AboutPage() {
               <DownloadIcon size={20} />
               Download Ariya
             </a>
-            <a href={repoUrls.repo} target="_blank" rel="noopener" className="btn-secondary">
+            <a href={repoUrls.repo} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               <GithubIcon size={18} />
               View on GitHub
             </a>
@@ -162,11 +162,11 @@ export default function AboutPage() {
             <p>{ABOUT.community.paragraph}</p>
           </Reveal>
           <Reveal className="about-cta">
-            <a href={repoUrls.repo} target="_blank" rel="noopener" className="btn-primary">
+            <a href={repoUrls.repo} target="_blank" rel="noopener noreferrer" className="btn-primary">
               <GithubIcon size={18} />
               GitHub
             </a>
-            <a href={discordConfig.supportUrl} target="_blank" rel="noopener" className="btn-secondary">
+            <a href={discordConfig.supportUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               <DiscordIcon size={18} />
               Join Discord
             </a>

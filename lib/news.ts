@@ -70,7 +70,7 @@ export async function getMetadata(options: { force?: boolean } = {}): Promise<Ne
       metadataInflight = null;
     });
 
-  return metadataInflight;
+  return await metadataInflight;
 }
 
 export function versionFromId(id: string): string {

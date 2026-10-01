@@ -75,8 +75,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     // data-scroll-behavior lets Next disable smooth scrolling on route changes,
     // which otherwise fights the browser jumping to the new page's scroll top.
-    <html lang="en" data-scroll-behavior="smooth">
-      <body>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         {/* Brand loading screen: fixed and self-removing, so it never shifts the layout. */}
         <Loader />
         <ServiceWorker />

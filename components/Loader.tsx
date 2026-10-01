@@ -22,9 +22,7 @@ export default function Loader() {
 
     const startedAt = Date.now();
     let readyAt = 0;
-    let lastTick = startedAt;
     let displayed = 0;
-    let shown = 0;
     let finished = false;
     let raf = 0;
 
@@ -32,8 +30,12 @@ export default function Loader() {
       if (!readyAt) readyAt = Date.now();
     };
 
-    if (document.readyState === 'complete') markReady();
-    else window.addEventListener('load', markReady, { once: true });
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      markReady();
+    } else {
+      window.addEventListener('DOMContentLoaded', markReady, { once: true });
+      window.addEventListener('load', markReady, { once: true });
+    }
 
     if (typeof document.fonts?.ready?.then === 'function') {
       document.fonts.ready.then(markReady).catch(() => {});
@@ -45,49 +47,45 @@ export default function Loader() {
       setProgress(100);
       setLeaving(true);
       root.classList.remove('is-loading');
-      window.setTimeout(() => setRemoved(true), 700);
+      window.setTimeout(() => setRemoved(true), 600);
     };
 
-    // One tick of the ramp. Progress is integrated from real elapsed time, so
-    // the animation loop and the watchdog interval below agree with each other
-    // and a throttled frame can never make the bar run backwards or stand still.
     const tick = () => {
       if (finished) return;
       const now = Date.now();
-      const dt = Math.min(250, now - lastTick) / 1000;
-      lastTick = now;
+      const elapsed = now - startedAt;
 
-      // Ease towards 90% while the page loads, then a fast clean finish.
-      const target = readyAt ? 100 : Math.min(90, 12 + (now - startedAt) / 14);
-      displayed += (target - displayed) * Math.min(1, dt * (readyAt ? 9 : 6));
+      // Smooth progress integration
+      if (readyAt) {
+        // Fast, smooth ramp to 100 once ready
+        displayed += (102 - displayed) * 0.16;
+      } else {
+        // Eased climb toward 90% while page resources load
+        const target = Math.min(88, 15 + elapsed / 18);
+        displayed += (target - displayed) * 0.1;
+      }
 
       const next = Math.min(100, Math.round(displayed));
-      if (next !== shown) {
-        shown = next;
-        setProgress(next);
+      setProgress(next);
+
+      if (readyAt && next >= 99) {
+        finish();
+      } else {
+        raf = requestAnimationFrame(tick);
       }
-      if (readyAt && next >= 100) finish();
     };
 
-    const loop = () => {
-      tick();
-      if (!finished) raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
+    raf = requestAnimationFrame(tick);
 
-    // Watchdog: a hidden or backgrounded tab throttles requestAnimationFrame to
-    // a crawl, and the overlay - which locks scrolling - would never lift.
-    // Timers still fire there, so the ramp advances without the frame loop.
-    const interval = window.setInterval(tick, 200);
-    // Safety valves: never trap the visitor behind the loading screen.
-    const failsafe = window.setTimeout(markReady, 4200);
-    const hardFailsafe = window.setTimeout(finish, 6000);
+    // Watchdog safety valves: never trap the visitor behind the loading screen
+    const failsafe = window.setTimeout(markReady, 1200);
+    const hardFailsafe = window.setTimeout(finish, 2200);
 
     return () => {
       cancelAnimationFrame(raf);
-      window.clearInterval(interval);
       window.clearTimeout(failsafe);
       window.clearTimeout(hardFailsafe);
+      window.removeEventListener('DOMContentLoaded', markReady);
       window.removeEventListener('load', markReady);
       root.classList.remove('is-loading');
     };

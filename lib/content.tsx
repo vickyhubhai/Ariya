@@ -111,7 +111,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer: (
       <p>
         Yes. Ariya is free and open source. You can download the latest APK from the{' '}
-        <a href={repoUrls.releases} target="_blank" rel="noopener">
+        <a href={repoUrls.releases} target="_blank" rel="noopener noreferrer">
           official GitHub releases page
         </a>
         .
@@ -142,7 +142,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer: (
       <p>
         Join the Ariya{' '}
-        <a href={discordConfig.supportUrl} target="_blank" rel="noopener">
+        <a href={discordConfig.supportUrl} target="_blank" rel="noopener noreferrer">
           Discord support server
         </a>
         , or use the <a href="#support">Report a Bug form</a> on the Support section. Reports go straight to the team.
@@ -154,7 +154,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer: (
       <p>
         Yes. Ariya is open source and its code is publicly available on{' '}
-        <a href={repoUrls.repo} target="_blank" rel="noopener">
+        <a href={repoUrls.repo} target="_blank" rel="noopener noreferrer">
           GitHub
         </a>{' '}
         under the MIT license.

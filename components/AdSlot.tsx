@@ -1,6 +1,6 @@
 'use client';
-
-import { useEffect, useRef } from 'react';
+ 
+import { memo, useEffect, useRef } from 'react';
 import { siteConfig } from '@/lib/config';
 
 declare global {
@@ -12,23 +12,20 @@ declare global {
 /**
  * AdSense placement.
  *
- * The <ins> is created inside an effect instead of being rendered by React.
- * AdSense rewrites that element in place once the ad fills (it adds
- * data-adsbygoogle-status / data-ad-status and an iframe child), and React
- * then compares that mutated DOM against its own tree on the next client-side
- * segment render - which surfaces as a "Hydration failed" error. A React-owned
- * empty shell can never disagree, and the shell reserves the same 90px so the
- * layout still does not shift while the ad loads.
- *
- * The unit is only pushed when it scrolls near the viewport, exactly like the
- * inline script this replaces; blocked or missing ads leave the empty band.
+ * AdSense and ad blockers (Brave Shields, uBlock) dynamically manipulate and rewrite
+ * DOM nodes in place. We use `dangerouslySetInnerHTML={{ __html: '' }}` on the host element
+ * so React's reconciler completely skips diffing its children during hydration and re-renders,
+ * and wrap the component in `memo` so parent state changes never trigger re-renders.
  */
-export default function AdSlot() {
+function AdSlotComponent() {
   const hostRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
+
+    // Reset host content to cleanly support React StrictMode double invocation
+    host.innerHTML = '';
 
     const ins = document.createElement('ins');
     ins.className = 'adsbygoogle';
@@ -70,15 +67,22 @@ export default function AdSlot() {
     return () => {
       observer?.disconnect();
       window.removeEventListener('load', push);
-      // AdSense keeps the node as its own container; detaching it stops the
-      // slot from being re-requested when the route mounts this section again.
-      if (ins.parentNode === host) host.removeChild(ins);
+      if (host) {
+        host.innerHTML = '';
+      }
     };
   }, []);
 
   return (
-    <div className="container ad-slot" style={{ paddingBottom: 60, textAlign: 'center' }}>
-      <div ref={hostRef} style={{ width: '100%', minHeight: 90 }} />
+    <div className="container ad-slot" style={{ paddingBottom: 60, textAlign: 'center' }} suppressHydrationWarning>
+      <div
+        ref={hostRef}
+        style={{ width: '100%', minHeight: 90 }}
+        dangerouslySetInnerHTML={{ __html: '' }}
+        suppressHydrationWarning
+      />
     </div>
   );
 }
+
+export default memo(AdSlotComponent);

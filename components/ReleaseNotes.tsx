@@ -96,7 +96,7 @@ export default function ReleaseNotes() {
           id="changelog-link"
           href={CHANGELOG_BROWSE_URL}
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           className="btn-primary"
           style={{ display: 'inline-flex', fontSize: '.85rem', padding: '10px 20px' }}
           onClick={onViewChangelog}
@@ -108,7 +108,7 @@ export default function ReleaseNotes() {
           id="notes-link"
           href={release?.htmlUrl ?? repoUrls.releases}
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           className="btn-secondary"
           style={{ display: 'inline-flex', fontSize: '.85rem', padding: '10px 20px' }}
         >

@@ -15,7 +15,7 @@ export function formatDate(iso: string | undefined | null): string {
   if (!iso) return 'Unknown';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return 'Unknown';
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 }
 
 export function isOffline(): boolean {

@@ -117,7 +117,7 @@ export default function Navbar() {
         <div className="links" id="nav-links">
           {links.map((item) =>
             item.external ? (
-              <a key={item.href} href={item.href} target="_blank" rel="noopener">
+              <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer">
                 {item.label}
               </a>
             ) : (

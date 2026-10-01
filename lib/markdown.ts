@@ -26,7 +26,7 @@ export function renderMarkdown(text: string | null | undefined): string {
     .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_m, label: string, url: string) => {
       const safe = safeUrl(url, ['https:', 'http:', 'mailto:', '#']);
       if (!safe) return label;
-      return `<a href="${safe}" target="_blank" rel="noopener">${label}</a>`;
+      return `<a href="${safe}" target="_blank" rel="noopener noreferrer">${label}</a>`;
     })
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/^### (.+)$/gm, '<strong>$1</strong>')

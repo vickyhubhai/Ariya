@@ -65,7 +65,7 @@ export default function DownloadSection() {
             <DownloadButton id="download-btn-mobile" />
             {/* `[data-release-url]`: the live release page, and clicking it
                 dismisses the "New Update" badge (ReleaseSync.bindReleaseLinks). */}
-            <a href={release?.htmlUrl ?? repoUrls.releases} target="_blank" rel="noopener" className="btn-secondary" onClick={acknowledge}>
+            <a href={release?.htmlUrl ?? repoUrls.releases} target="_blank" rel="noopener noreferrer" className="btn-secondary" onClick={acknowledge}>
               Release Notes
             </a>
           </div>

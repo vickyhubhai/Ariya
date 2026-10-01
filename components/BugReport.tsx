@@ -153,7 +153,7 @@ export default function BugReport() {
         <h4>Report sent!</h4>
         <p>Thanks &mdash; our team has been notified. For faster help, join the Discord server.</p>
         <div className="bug-success-actions">
-          <a href={discordConfig.supportUrl} target="_blank" rel="noopener" className="btn-secondary">
+          <a href={discordConfig.supportUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
             Join Discord
           </a>
           <button

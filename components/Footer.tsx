@@ -15,16 +15,16 @@ export default function Footer() {
         </div>
         <div className="links">
           <Link href="/about">About</Link>
-          <a href={repoUrls.repo} target="_blank" rel="noopener">
+          <a href={repoUrls.repo} target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
-          <a href={repoUrls.releases} target="_blank" rel="noopener">
+          <a href={repoUrls.releases} target="_blank" rel="noopener noreferrer">
             Releases
           </a>
-          <a href={discordConfig.supportUrl} target="_blank" rel="noopener">
+          <a href={discordConfig.supportUrl} target="_blank" rel="noopener noreferrer">
             Discord
           </a>
-          <a href={repoUrls.license} target="_blank" rel="noopener">
+          <a href={repoUrls.license} target="_blank" rel="noopener noreferrer">
             License
           </a>
         </div>

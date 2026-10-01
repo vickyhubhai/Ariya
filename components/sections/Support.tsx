@@ -21,7 +21,7 @@ export default function Support() {
             </div>
             <h3>{SUPPORT.discordTitle}</h3>
             <p>{SUPPORT.discordText}</p>
-            <a href={discordConfig.supportUrl} target="_blank" rel="noopener" className="btn-primary support-cta">
+            <a href={discordConfig.supportUrl} target="_blank" rel="noopener noreferrer" className="btn-primary support-cta">
               <DiscordIcon size={18} />
               Join Discord
             </a>

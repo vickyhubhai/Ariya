@@ -32,7 +32,7 @@ export default function Toast() {
                     className="toast-btn"
                     href={action.href}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     onClick={() => {
                       hideToast();
                       action.onClick?.();
