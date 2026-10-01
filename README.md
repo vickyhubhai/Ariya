@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/ariya-logo.png" alt="Ariya Logo" width="140" style="border-radius: 28px; box-shadow: 0 8px 32px rgba(124,92,252,0.3);">
+  <img src="public/assets/ariya-logo.png" alt="Ariya Logo" width="140" style="border-radius: 28px; box-shadow: 0 8px 32px rgba(124,92,252,0.3);">
 </p>
 
 <h1 align="center">Ariya</h1>
@@ -274,8 +274,40 @@ Release versions follow semantic versioning where applicable:
 MAJOR.MINOR.PATCH
 ```
 
+---
+
+## 🖥 Website
+
+The landing site lives in this repository and is a standard Next.js application — the repo root **is** the project.
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm start        # serve the production build
+npm run typecheck
+```
+
+| Path | Responsibility |
+| --- | --- |
+| `app/layout.tsx` | Metadata (title, description, canonical, Open Graph, Twitter, robots, icons, manifest), AdSense/Monetag loading, site shell |
+| `app/page.tsx` | Home page sections + `application/ld+json` graph |
+| `app/about/page.tsx` | `/about` content and `AboutPage` structured data |
+| `app/not-found.tsx` | 404 page (`noindex, nofollow`) |
+| `app/globals.css` | The full design system ported from the old `critical.css` + `style.css` |
+| `components/` | Navbar, Hero, sections, download button, release notes, bug form, loading screen, `3d/` scene |
+| `lib/` | Typed data layer: GitHub releases, changelog news, Discord webhooks, downloader, SEO, hooks |
+| `public/` | `/assets`, `manifest.json`, `robots.txt`, `sitemap.xml`, `llms.txt`, `sw.js` |
+
+Release data is read from the [Ariya](https://github.com/vickyhubhai/Ariya) GitHub Releases API and the changelog content is served from the `Ariya_news` repository (see `lib/config.ts`), exactly as the previous static site did.
+
+---
+
 ## Recent Updates
 
+- Rebuilt the website as a **Next.js 16 (App Router) + React + TypeScript** application at the repository root: `app/`, `components/`, `lib/`, `public/`.
+- Added a WebGL hero scene (Three.js / React Three Fiber / drei) that only runs on capable devices and never on `prefers-reduced-motion`.
+- Added the branded loading screen and a real download progress state (`Preparing → Downloading → Downloaded`); the percentage is only shown when the byte stream actually reports progress.
 - Added a dedicated **About** page (`/about`) with About navigation in the header/footer.
 - Updated the site to **v1.1.0**: new hero description, expanded Features section (Glass/Haze UI, Advanced Player, Queue Management, Lyrics, Audio Quality, Discovery, Discord, Settings, Updates), and a v1.1.0 What's New summary.
 - Addressed 8 usability heuristics issues: improved type scale, border radii consistency, form alignment, button styles, visual hierarchy in What's New section, footer alignment, feature card spacing, and system requirement grouping.
