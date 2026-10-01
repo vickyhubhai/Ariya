@@ -58,7 +58,8 @@ check('ad reserved space', html.includes('class="container ad-slot"'));
 check('adsense script once', (html.match(/pagead2\.googlesyndication/g) || []).length === 1);
 check('404 noindex', notfound.includes('noindex, nofollow'));
 check('manifest id/scope', fs.readFileSync('manifest.json', 'utf8').includes('"scope"'));
-check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v9'));
+check('sw cache bumped', fs.readFileSync('sw.js', 'utf8').includes('ariya-dl-v10'));
+check('apk build picker present', html.includes('id="apk-variants"') && html.includes('id="variants-grid"'));
 check('google verification kept', html.includes('google-site-verification'));
 check('html lang', html.includes('<html lang="en">'));
 

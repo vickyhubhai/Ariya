@@ -3,6 +3,8 @@ const Download = {
   release: null,
   _fetching: null,
   _toastTimer: null,
+  variants: [],
+  selected: null,
 
   init() {
     this.btn = document.getElementById('download-btn');
@@ -12,6 +14,12 @@ const Download = {
 
     this.btn?.addEventListener('click', () => this.startDownload());
     this.btnMobile?.addEventListener('click', () => this.startDownload());
+
+    const variantsGrid = document.getElementById('variants-grid');
+    variantsGrid?.addEventListener('click', e => {
+      const card = e.target.closest('.variant-card');
+      if (card && card.dataset.name) this.selectVariant(card.dataset.name);
+    });
 
     const changelogLink = document.getElementById('changelog-link');
     if (changelogLink) {
@@ -104,6 +112,8 @@ const Download = {
       if (r.htmlUrl) a.href = r.htmlUrl;
     });
 
+    this.renderVariants();
+
     const hasApk = !!(r.apk && r.apk.url);
     if (!hasApk && this.state !== 'loading') {
       [this.btn, this.btnMobile].filter(Boolean).forEach(btn => {
@@ -111,6 +121,120 @@ const Download = {
         if (text) text.textContent = 'APK Unavailable';
       });
     }
+  },
+
+  getApkAssets() {
+    if (!this.release || !Array.isArray(this.release.assets)) return [];
+    return this.release.assets.filter(a => a && typeof a.url === 'string' && a.url && /\.apk$/i.test(a.name));
+  },
+
+  variantInfo(name) {
+    const n = String(name || '').toLowerCase();
+    const flavor = n.includes('foss') ? 'FOSS' : 'GMS';
+    const arch = n.includes('arm64') || n.includes('aarch64') ? 'ARM64'
+      : n.includes('armv7') || n.includes('armeabi') ? 'ARMv7'
+      : n.includes('universal') ? 'Universal' : 'Universal';
+    return { flavor, arch };
+  },
+
+  variantDesc({ flavor, arch }) {
+    const flavorNote = flavor === 'FOSS' ? 'No Google services' : 'With Google services support';
+    const archNote = arch === 'Universal' ? 'Works on every Android device'
+      : arch === 'ARM64' ? 'Smaller build for most modern phones'
+      : arch === 'ARMv7' ? 'For older 32-bit devices' : arch;
+    return `${flavorNote} \u00b7 ${archNote}`;
+  },
+
+  isRecommended(asset) {
+    const { flavor, arch } = this.variantInfo(asset.name);
+    return flavor === 'GMS' && arch === 'ARM64';
+  },
+
+  downloadTarget() {
+    return this.selected || (this.release && this.release.apk) || null;
+  },
+
+  renderVariants() {
+    const wrap = document.getElementById('apk-variants');
+    const grid = document.getElementById('variants-grid');
+    if (!wrap || !grid) return;
+
+    const assets = this.getApkAssets();
+    if (assets.length < 2) {
+      wrap.hidden = true;
+      grid.innerHTML = '';
+      this.variants = assets;
+      this.selected = assets[0] || null;
+      return;
+    }
+
+    const stillValid = this.selected && assets.find(a => a.name === this.selected.name);
+    const recommended = assets.find(a => this.isRecommended(a)) || null;
+    this.variants = assets;
+    this.selected = stillValid || recommended || assets[0];
+
+    const sub = document.getElementById('variants-sub');
+    if (sub && this.release) {
+      sub.textContent = '';
+      sub.append('All builds are the latest ');
+      const v = document.createElement('strong');
+      v.textContent = this.release.version;
+      sub.append(v, ' release \u2014 same app, different packaging.');
+    }
+
+    grid.innerHTML = '';
+    assets.forEach(a => {
+      const info = this.variantInfo(a.name);
+      const isSelected = this.selected && a.name === this.selected.name;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'variant-card' + (isSelected ? ' selected' : '');
+      btn.setAttribute('role', 'radio');
+      btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+      btn.dataset.name = a.name;
+
+      const head = document.createElement('div');
+      head.className = 'variant-head';
+      const nameEl = document.createElement('span');
+      nameEl.className = 'variant-name';
+      nameEl.textContent = `${info.flavor} \u00b7 ${info.arch}`;
+      const check = document.createElement('span');
+      check.className = 'variant-check';
+      check.setAttribute('aria-hidden', 'true');
+      head.append(nameEl, check);
+
+      const desc = document.createElement('span');
+      desc.className = 'variant-desc';
+      desc.textContent = this.variantDesc(info);
+
+      const meta = document.createElement('span');
+      meta.className = 'variant-meta';
+      const size = document.createElement('span');
+      size.className = 'variant-size';
+      size.textContent = GitHub.formatSize(a.size);
+      meta.append(size);
+      if (recommended && a.name === recommended.name) {
+        const badge = document.createElement('span');
+        badge.className = 'variant-badge';
+        badge.textContent = 'Recommended';
+        meta.append(badge);
+      }
+
+      btn.append(head, desc, meta);
+      grid.appendChild(btn);
+    });
+    wrap.hidden = false;
+  },
+
+  selectVariant(name) {
+    const v = this.variants.find(a => a.name === name);
+    if (!v) return;
+    this.selected = v;
+    document.querySelectorAll('#variants-grid .variant-card').forEach(card => {
+      const on = card.dataset.name === name;
+      card.classList.toggle('selected', on);
+      card.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
   },
 
   async viewChangelog() {
@@ -174,30 +298,31 @@ const Download = {
       }
     }
 
-    if (!this.release?.apk?.url) {
+    if (!this.release?.apk?.url && !this.downloadTarget()) {
       this.showError('APK is not available for this release.');
       return;
     }
 
+    const target = this.downloadTarget();
     this.setState('downloading');
     this.hideError();
 
     try {
       const link = document.createElement('a');
-      link.href = this.release.apk.url;
-      link.download = this.release.apk.name || 'Ariya.apk';
+      link.href = target.url;
+      link.download = target.name || 'Ariya.apk';
       link.style.display = 'none';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
       if (typeof ReleaseSync !== 'undefined') ReleaseSync.acknowledge();
-      this.showToast(`Downloading ${this.release.apk.name}...`);
+      this.showToast(`Downloading ${target.name}...`);
       setTimeout(() => this.setState('idle'), 2000);
     } catch {
       this.setState('error');
       this.showError('Download failed. Please try again.');
-      window.open(this.release.apk.url, '_blank');
+      window.open(target.url, '_blank');
     }
   },
 

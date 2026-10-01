@@ -26,3 +26,28 @@ nav .links a[aria-current="page"]::after{width:100%}
 .about-bullets li::before{content:'\2022';position:absolute;left:4px;color:var(--accent2);font-weight:700}
 .about-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:44px}
 @media(max-width:768px){.about-hero{padding:150px 24px 60px}.about-section{padding:56px 0}.about-split{grid-template-columns:1fr}.about-panel{padding:26px 22px;backdrop-filter:none;-webkit-backdrop-filter:none}.about-cta .btn-primary,.about-cta .btn-secondary{width:100%;justify-content:center;max-width:320px}}
+
+/* --- Download: APK build picker --- */
+.apk-variants{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:700px;margin:28px auto 0;position:relative;overflow:hidden}
+.apk-variants::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
+.apk-variants[hidden]{display:none}
+.variants-title{font-size:1.1rem;font-weight:700;letter-spacing:-.2px}
+.variants-sub{color:var(--text3);font-size:.85rem;margin:6px 0 22px}
+.variants-sub strong{color:var(--accent2);font-weight:600}
+.variants-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;text-align:left}
+.variant-card{display:flex;flex-direction:column;gap:8px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;transition:border-color .3s,background .3s,box-shadow .3s,transform .3s}
+.variant-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.variant-card:focus-visible{outline:none;box-shadow:0 0 0 2px var(--accent)}
+.variant-card.selected{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent),0 8px 24px rgba(124,92,252,.18)}
+.variant-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.variant-name{font-size:.95rem;font-weight:700;letter-spacing:-.2px}
+.variant-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .25s,background .25s}
+.variant-card.selected .variant-check{border-color:var(--accent);background:var(--accent)}
+.variant-card.selected .variant-check::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+.variant-desc{color:var(--text2);font-size:.8rem;line-height:1.55}
+.variant-meta{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:4px}
+.variant-size{color:var(--text3);font-size:.75rem;font-variant-numeric:tabular-nums}
+.variant-badge{margin-left:auto;padding:3px 10px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--green),#10b981);color:#03231a;font-size:.65rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.variants-hint{color:var(--text3);font-size:.8rem;line-height:1.7;margin-top:18px}
+.variants-hint strong{color:var(--text2);font-weight:600}
+@media(max-width:768px){.variants-grid{grid-template-columns:1fr}.apk-variants{padding:24px 20px;backdrop-filter:none;-webkit-backdrop-filter:none}}

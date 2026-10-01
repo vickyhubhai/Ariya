@@ -1,4 +1,4 @@
-const CACHE = 'ariya-dl-v9';
+const CACHE = 'ariya-dl-v10';
 const ASSETS = [
   '/', '/index.html', '/css/style.css',
   '/about/', '/about/index.html',
