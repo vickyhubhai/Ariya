@@ -164,7 +164,7 @@ html.is-loading,html.is-loading body{overflow:hidden}
 .loader-wordmark{display:flex;gap:.08em;font-size:1.35rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
 .loader-wordmark>span{opacity:0;transform:translateY(12px);animation:letterUp .55s cubic-bezier(.16,1,.3,1) forwards;background:linear-gradient(180deg,#fff 15%,var(--accent2) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .loader-track{width:100%;height:4px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.4)}
-.loader-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--green));background-size:200% 100%;box-shadow:0 0 16px rgba(124,92,252,.75);transition:width .12s ease-out;will-change:width}
+.loader-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--green));background-size:200% 100%;box-shadow:0 0 16px rgba(124,92,252,.75);will-change:width}
 .loader-meta{display:flex;justify-content:space-between;width:100%;font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text3)}
 .loader-pct{font-variant-numeric:tabular-nums;color:var(--accent3);font-weight:700}
 @keyframes auroraSpin{to{transform:rotate(1turn)}}
