@@ -32,7 +32,7 @@
 
 ---
 
-## About
+## About-Us
 
 **Ariya** is a modern Android music player built with a strong focus on simplicity, performance, audio quality, and a polished user experience.
 
