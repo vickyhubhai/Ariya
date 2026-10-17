@@ -309,7 +309,7 @@ export const entityFacts = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Gallery: illustrative interface previews + genuine release artwork   */
+/* Gallery: genuine in-app screenshots + genuine release artwork        */
 /* ------------------------------------------------------------------ */
 
 export interface GalleryItem {
@@ -327,10 +327,10 @@ export interface GalleryItem {
 }
 
 /**
- * `interface` items are illustrative device previews drawn from the documented
- * release notes. `artwork` items are the genuine images published with the
- * official Ariya_news posts, served same-origin through the validated artwork
- * proxy (`/api/news/artwork`).
+ * `interface` items are genuine in-app screenshots captured with the Ariya
+ * Android app (sources in `public/assets/screenshots/`). `artwork` items are the
+ * genuine images published with the official Ariya_news posts, served
+ * same-origin through the validated artwork proxy (`/api/news/artwork`).
  */
 export const galleryItems: GalleryItem[] = [
   {
@@ -350,6 +350,9 @@ export const galleryItems: GalleryItem[] = [
     description:
       "Full-screen artwork, lossless labelling, queue controls and synced-lyric preview in one player surface.",
     screen: "player",
+    image: "/assets/screenshots/fullplayer.png",
+    width: 1080,
+    height: 2400,
   },
   {
     id: "lyrics",
@@ -359,6 +362,31 @@ export const galleryItems: GalleryItem[] = [
     description:
       "Lyrics follow the current line, with configurable provider ordering and an opt-in API-key dialog for protected providers.",
     screen: "lyrics",
+    image: "/assets/screenshots/lyrics_screen.png",
+    width: 1080,
+    height: 2400,
+  },
+  {
+    id: "queue",
+    kind: "interface",
+    label: "Queue",
+    title: "Queue control",
+    description:
+      "Reorder, remove, play next, shuffle and repeat — the full queue surface as shipped in the app.",
+    image: "/assets/screenshots/queue.png",
+    width: 1080,
+    height: 2400,
+  },
+  {
+    id: "artist",
+    kind: "interface",
+    label: "Artist",
+    title: "Artist experience",
+    description:
+      "Artist bio, track and album counts, plus library, shuffle, radio and subscribe controls — the redesigned artist experience from the v1.2.0 release line.",
+    image: "/assets/screenshots/artist_screen.png",
+    width: 1080,
+    height: 2400,
   },
   {
     id: "artwork-red-moon",

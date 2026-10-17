@@ -15,7 +15,10 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       { src: "/assets/ariya-logo-64.png", sizes: "64x64", type: "image/png" },
       { src: "/assets/ariya-logo-160.png", sizes: "160x160", type: "image/png" },
+      { src: "/assets/ariya-logo-180.png", sizes: "180x180", type: "image/png" },
+      { src: "/assets/ariya-logo-240.png", sizes: "240x240", type: "image/png" },
       { src: "/assets/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/assets/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }

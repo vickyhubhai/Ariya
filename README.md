@@ -3,6 +3,9 @@
 Production-ready marketing site for **Ariya Music Player** (tagline: *Music Beyond Limits*),
 built with Next.js App Router, TypeScript, Tailwind CSS v4 and Drizzle/PostgreSQL.
 
+- Live site: <https://ariyamusic.us.ci>
+- Source & releases: <https://github.com/vickyhubhai/Ariya>
+
 ## Stack
 
 | Layer | Choice |
@@ -12,7 +15,7 @@ built with Next.js App Router, TypeScript, Tailwind CSS v4 and Drizzle/PostgreSQ
 | 3D / motion | CSS 3D transforms, IntersectionObserver reveals, a dependency-free canvas particle field |
 | Data | Public GitHub REST API + `raw.githubusercontent.com`, cached in PostgreSQL via Drizzle |
 | Icons | Hand-written SVG set (`src/components/icons.tsx`) — no icon package |
-| Images | Genuine Ariya brand assets (`public/assets`) and real news artwork (`public/news`) |
+| Images | Genuine Ariya brand assets and in-app screenshots (`public/assets`), release artwork served through the validated `/api/news/artwork` proxy |
 
 No Three.js/R3F dependency is used: the device mockup, tilt cards and depth layers are pure CSS
 transforms, which keeps the main-thread cost low and degrades cleanly. Every 3D/parallax effect is
@@ -25,6 +28,7 @@ disabled for `prefers-reduced-motion` and on low-power devices.
 - `/releases` — release explorer with search and expandable changelogs
 - `/releases/[tag]` — per-release page with notes, APK list, checksums
 - `/news` `/news/[slug]` — Ariya_news feed and sanitised Markdown posts
+- `/guide` — user guide: install, playback, queue, lyrics, audio quality, troubleshooting (HowTo structured data)
 - `/about` `/faq` — entity facts, privacy/security notes, full FAQ
 - `/api/release/latest`, `/api/releases`, `/api/news`, `/api/news/artwork`, `/api/health`
 - `/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest`, `/feed.xml`, `/llms.txt`
@@ -56,23 +60,27 @@ GITHUB_TOKEN=…                  # optional, server-only, raises GitHub API rat
 browser. Apply the schema with:
 
 ```bash
-npx drizzle-kit push --config drizzle.config.json
+npx drizzle-kit push
 ```
 
 ## Security
 
 - Strict CSP, HSTS, `X-Content-Type-Options`, COOP/CORP, `Referrer-Policy`, and a restrictive
-  `Permissions-Policy` (`next.config.ts`). Framing is restricted with a CSP `frame-ancestors`
-  allowlist (self + Arena preview hosts) instead of `X-Frame-Options`, because XFO cannot express an
-  allowlist and its `DENY` value blocks the platform's own preview frame.
+  `Permissions-Policy` (`next.config.ts`). Framing is restricted with a CSP `frame-ancestors
+  'self'` directive instead of `X-Frame-Options`, so no third-party origin can embed the site.
 - No `dangerouslySetInnerHTML` for upstream content — Markdown is parsed into React nodes.
-  The only inline script is the JSON-LD payload, which is escaped.
+  The only inline scripts are the escaped JSON-LD payload and a small static
+  service-worker cleanup shim in the root layout.
 - Links in release notes/news are restricted to HTTPS hosts on an allowlist.
 - The news image proxy (`/api/news/artwork`) validates host, HTTPS, content type and payload size,
   and requests a deterministic resized WebP variant from imgix so intermediary caches cannot serve a
   full-size source image.
 - No analytics, ad scripts, accounts, cookies or personal data collection.
 - APK downloads open the official GitHub asset URL; the server never proxies binaries.
+- A pre-hydration inline script in `layout.tsx` unregisters any service worker left behind by
+  earlier deployments of this site, purges its Cache Storage entries and reloads the tab once, so
+  stale cached chunks cannot cause hydration mismatches or ghost assets for returning visitors.
+  It is a no-op for browsers without a registration.
 
 Deployment still needs to terminate TLS and force HTTPS redirects at the edge, and should keep the
 optional GitHub token in a server-side secret store.
@@ -96,23 +104,34 @@ optional GitHub token in a server-side secret store.
   states, wrapping text and an `.btn-icon` square variant. Inline card links use `.tap`/`.tap-sm`.
 - `code`, `.font-mono` and `.break-anywhere` break long URLs/identifiers so a single asset name can
   never widen a grid column (this previously clipped `/download` at 320–375px).
-- Components: `FeatureExplorer` (category filtering), `ScreenshotGallery` (filters + keyboard
-  lightbox), `NewsExplorer` (search/filter/sort), `ScrollToTop`, `OfflineBanner`, `SafeImage`
-  (graceful image fallback) and a CSS-only `template.tsx` page transition.
+- Components: `FeatureExplorer` (category filtering), `ScreenshotGallery` (genuine in-app
+  screenshots + keyboard lightbox), `NewsExplorer` (search/filter/sort), `ScrollToTop`,
+  `OfflineBanner`, `SafeImage` (graceful image fallback) and a CSS-only `template.tsx` page transition.
 
 Verified with headless Chromium (Playwright) at 320/375/390/430/768/1024/1280/1440/1920px across
 `/`, `/download`, `/releases`, `/news`, `/about`, `/faq`: 0 horizontal overflow, 0 console errors,
 0 broken images, one `<h1>` per page, plus 20 passing interaction/a11y checks.
 
+## Brand assets
+
+All favicons, PWA icons and the brand logo are derived from a single source file,
+`scripts/ariya_logo_source.png`. `scripts/make-assets.ps1` regenerates every size referenced by
+`layout.tsx` (16/32/64/160/512 favicons, 180 apple-touch), `manifest.ts` (64/160/180/240/512 plus a
+maskable 512) and `site.ts` (`ariya_logo.png`, `ariya-logo-240.png`, `icon-512.png`) into
+`public/assets/`. Re-run it after swapping the source logo:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\make-assets.ps1
+```
+
 ## Known limitations (honest reporting)
 
-- The official repository does not publish captured app screenshots, so the showcase contains clearly
-  labelled **illustrative UI previews** built from documented release notes, not screenshots.
+- Some showcase cards remain clearly labelled **illustrative UI previews** (CSS mockups) where no
+  official screenshot exists; cards marked **In-app screenshot** are genuine captures from the app.
+- The imgix-backed release artwork occasionally fails its first fetch through `/api/news/artwork`
+  (upstream timeout); the browser retry succeeds and the route caches the result for a day.
 - `notFound()` responses for unknown release/news slugs currently render the branded 404 page with a
   `200` status because Next 16 streams dynamic routes; those responses are explicitly `noindex`.
-- The preview hostname handed out by the platform is bound by the platform, not by this app. If a
-  previously issued `*.arena.site` preview URL serves an older build, open the preview URL returned by
-  the platform runtime (`https://3000-*.e2b.app`) or refresh the preview from Arena to re-bind it.
 - Lighthouse was not executed inside this sandbox (no headless browser available). Route status codes,
   production build, type checks and payload sizes were verified directly; run Lighthouse against the
   deployed HTTPS URL for field/lab scores.

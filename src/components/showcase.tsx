@@ -25,8 +25,8 @@ export function Showcase() {
               </>
             }
           >
-            Interactive device previews of Ariya’s documented screens, plus the genuine artwork
-            published with official releases. Open anything for a larger, keyboard-navigable view.
+            In-app screenshots and interactive previews of Ariya’s core screens, plus the
+            artwork published with official releases. Open anything for a larger, keyboard-navigable view.
           </SectionHeading>
         </Reveal>
 

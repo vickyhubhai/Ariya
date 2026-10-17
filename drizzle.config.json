@@ -1,7 +1,0 @@
-{
-  "dialect": "postgresql",
-  "schema": "./src/db/schema.ts",
-  "dbCredentials": {
-    "url": "postgresql://pterodactyl:18GTDJM5QE4R6RC0@uk-02.rrhosting.eu:7861/Ariya"
-  }
-}

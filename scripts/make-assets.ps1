@@ -22,6 +22,10 @@ function Save-Png([System.Drawing.Image]$img, [int]$size, [string]$path) {
 
 # Full-resolution brand logo used in header/loader (downscaled to 640 to keep weight sane)
 Save-Png $img 640 (Join-Path $out 'ariya_logo.png')
+# Favicon sizes referenced by layout.tsx
+Save-Png $img 16  (Join-Path $out 'ariya-logo-16.png')
+Save-Png $img 32  (Join-Path $out 'ariya-logo-32.png')
+Save-Png $img 180 (Join-Path $out 'ariya-logo-180.png')
 # Icon sizes referenced by manifest.ts, layout.tsx and site.ts
 Save-Png $img 64  (Join-Path $out 'ariya-logo-64.png')
 Save-Png $img 160 (Join-Path $out 'ariya-logo-160.png')

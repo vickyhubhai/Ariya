@@ -10,19 +10,12 @@ import type { NextConfig } from "next";
  * - `img-src`/`connect-src` are limited to this origin. News artwork is proxied
  *   through a validated server route, so the browser never talks to imgix or
  *   raw.githubusercontent.com directly.
- * - `frame-ancestors` allows only this origin plus the Arena preview hosts, so
- *   the site can render inside the preview pane while every other site is still
- *   blocked from framing it (clickjacking protection).
+ * - `frame-ancestors` allows only this origin, so no third-party site can frame
+ *   the site (clickjacking protection).
  * - `upgrade-insecure-requests` plus HSTS keep traffic on HTTPS. Edge-level
  *   HTTPS redirects still need to be enabled by the hosting provider.
  */
-const frameAncestors = [
-  "'self'",
-  "https://arena.ai",
-  "https://*.arena.ai",
-  "https://*.arena.site",
-  "https://*.e2b.app",
-].join(" ");
+const frameAncestors = "'self'";
 
 const isDev = process.env.NODE_ENV !== "production";
 
@@ -48,9 +41,9 @@ const securityHeaders = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Content-Type-Options", value: "nosniff" },
-  // Intentionally not setting X-Frame-Options: its DENY/SAMEORIGIN values cannot
-  // express an allowlist and would block the Arena preview frame. Framing is
-  // governed by the CSP `frame-ancestors` allowlist above instead.
+  // Intentionally not setting X-Frame-Options: framing is governed by the CSP
+  // `frame-ancestors` directive above, which the modern browsers this site
+  // targets all support.
   {
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
