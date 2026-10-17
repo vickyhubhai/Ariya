@@ -223,6 +223,7 @@ export default async function AboutPage() {
                   { label: "Release history", href: "/releases" },
                   { label: "MIT License", href: links.license },
                   { label: "Issue tracker", href: links.issues },
+                  { label: "About the developer", href: "/developer" },
                   { label: "Developer profile", href: links.developer },
                 ].map((item) => (
                   <li key={item.href}>

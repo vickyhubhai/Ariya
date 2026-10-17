@@ -79,6 +79,7 @@ export const footerGroups = [
       { href: "/news", label: "Developer news" },
       { href: "/guide", label: "User guide" },
       { href: "/about", label: "About Ariya" },
+      { href: "/developer", label: "About the developer" },
       { href: "/#faq", label: "FAQ" },
       { href: links.repo, label: "GitHub repository", external: true },
       { href: links.newsContent, label: "News source", external: true },

@@ -30,6 +30,7 @@ disabled for `prefers-reduced-motion` and on low-power devices.
 - `/news` `/news/[slug]` — Ariya_news feed and sanitised Markdown posts
 - `/guide` — user guide: install, playback, queue, lyrics, audio quality, troubleshooting (HowTo structured data)
 - `/about` `/faq` — entity facts, privacy/security notes, full FAQ
+- `/developer` — who builds Ariya, where the code and news live, how to report issues
 - `/api/release/latest`, `/api/releases`, `/api/news`, `/api/news/artwork`, `/api/health`
 - `/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest`, `/feed.xml`, `/llms.txt`
 

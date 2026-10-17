@@ -54,6 +54,7 @@ ${faq.map((item) => `### ${item.question}\n${item.answer}`).join("\n\n")}
 - News: ${SITE_URL}/news
 - Guide: ${SITE_URL}/guide
 - About: ${SITE_URL}/about
+- Developer: ${SITE_URL}/developer
 - FAQ: ${SITE_URL}/faq
 
 ## Notes for automated systems
