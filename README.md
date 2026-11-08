@@ -177,13 +177,6 @@ Notifications are supported through Firebase Cloud Messaging in GMS builds. FOSS
 - Git
 - Gradle wrapper included with the project
 
-### Clone the Repository
-
-```bash
-git clone <REPOSITORY_URL>
-cd <REPOSITORY_DIRECTORY>
-```
-
 ### Open the Project
 
 1. Open the project in Android Studio.
