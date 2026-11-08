@@ -1,149 +1,285 @@
-# Ariya Music Player — official website
+# Ariya
 
-Production-ready marketing site for **Ariya Music Player** (tagline: *Music Beyond Limits*),
-built with Next.js App Router, TypeScript, Tailwind CSS v4 and Drizzle/PostgreSQL.
+<p align="center">
 
-- Live site: <https://ariyamusic.us.ci>
-- Source & releases: <https://github.com/vickyhubhai/Ariya>
+# 🌙 Ariya
 
-## Stack
+**Music at Dusk.**
 
-| Layer | Choice |
+*A new chapter in your music experience.*
+
+</p>
+
+---
+
+## 🎧 About Ariya
+
+**Ariya** is a modern, cross-platform music player designed to deliver a seamless, beautiful, and flexible music-listening experience.
+
+Built around the idea of making music accessible across devices, Ariya aims to bring together music playback, lyrics, intelligent streaming, and a consistent listening experience.
+
+Whether you're listening on your phone, television, desktop, or another supported device, Ariya is designed to make your music experience simple and enjoyable.
+
+**One experience. Multiple platforms. Your music.**
+
+## 🌐 Supported & Planned Platforms
+
+Ariya aims to expand across multiple platforms.
+
+| Platform | Availability |
 |---|---|
-| Framework | Next.js 16 (App Router, Turbopack, React 19) |
-| Styling | Tailwind CSS v4 + design tokens in `src/app/globals.css` |
-| 3D / motion | CSS 3D transforms, IntersectionObserver reveals, a dependency-free canvas particle field |
-| Data | Public GitHub REST API + `raw.githubusercontent.com`, cached in PostgreSQL via Drizzle |
-| Icons | Hand-written SVG set (`src/components/icons.tsx`) — no icon package |
-| Images | Genuine Ariya brand assets and in-app screenshots (`public/assets`), release artwork served through the validated `/api/news/artwork` proxy |
+| Android | Available |
+| Android TV | Available |
+| Google TV | Available |
+| iOS | Planned |
+| Windows | Planned |
+| macOS | Planned |
+| Linux | Planned |
 
-No Three.js/R3F dependency is used: the device mockup, tilt cards and depth layers are pure CSS
-transforms, which keeps the main-thread cost low and degrades cleanly. Every 3D/parallax effect is
-disabled for `prefers-reduced-motion` and on low-power devices.
+*Platform availability depends on the official release and development progress.*
 
-## Routes
+---
 
-- `/` — hero, verified feature grid, interactive showcase, latest release, developer news, download, FAQ
-- `/download` — live build picker, requirements, install steps (HowTo structured data)
-- `/releases` — release explorer with search and expandable changelogs
-- `/releases/[tag]` — per-release page with notes, APK list, checksums
-- `/news` `/news/[slug]` — Ariya_news feed and sanitised Markdown posts
-- `/guide` — user guide: install, playback, queue, lyrics, audio quality, troubleshooting (HowTo structured data)
-- `/about` `/faq` — entity facts, privacy/security notes, full FAQ
-- `/developer` — who builds Ariya, where the code and news live, how to report issues
-- `/api/release/latest`, `/api/releases`, `/api/news`, `/api/news/artwork`, `/api/health`
-- `/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest`, `/feed.xml`, `/llms.txt`
+## ✨ Features
 
-## Data integrations (no fabricated data)
+### 🎵 Music Playback
 
-- **Releases:** `GET https://api.github.com/repos/vickyhubhai/Ariya/releases` (latest fallback via
-  `/releases/latest`). Drafts, prereleases and assets whose names look like
-  alpha/beta/debug/test/canary/leak builds are excluded. APK URLs must be HTTPS
-  `github.com/vickyhubhai/Ariya/releases/download/…`, validated server-side **and** again in the
-  browser. Versions, dates, sizes, download counts and checksums are never hardcoded.
-- **News:** `metadata.json` + `content/<id>.md` from the `main` branch of
-  `github.com/vickyhubhai/Ariya_news` (repository structure verified via the Contents API).
-  Post ids are validated against a strict pattern before any fetch.
-- **Caching:** public metadata is cached in the `ariya_api_cache` table (Drizzle) for 5–10 minutes to
-  stay inside GitHub's unauthenticated rate limit. If GitHub is unreachable, the last good snapshot
-  is served and clearly labelled as cached; if nothing is cached, the UI shows retry/fallback states
-  and always offers the official GitHub link.
+- Seamless music playback experience.
+- YouTube streaming support.
+- JioSaavn streaming fallback.
+- Ultra High quality playback.
+- 320 kbps JioSaavn streams when available.
+- Automatic fallback when a YouTube stream is unavailable.
+- Improved playback stability.
+- Decoder failure recovery with retry functionality.
 
-## Environment
+### 🎤 Multiple Lyrics Providers
+
+Ariya supports multiple lyrics sources:
+
+- lrc.red
+- Genius
+- Megalobiz
+
+**Individual provider controls:**
+
+Navigate to `Settings → Lyrics` to enable or disable individual lyrics providers.
+
+### ⚡ Additional Integrations
+
+- Optional PaxSenix integration.
+- User-provided API key support.
+- Improved playback error handling.
+- Contributor information retrieved from GitHub.
+- Local caching of contributor information.
+
+### 🔔 Push Notifications
+
+- Push notification support.
+- Firebase Cloud Messaging integration in GMS builds.
+- Dedicated Ariya notification channel.
+- Topic-based notifications.
+- FOSS builds remain Firebase-free.
+
+### 🔄 Update System
+
+- GitHub-powered update system.
+- Current and latest version information.
+- Direct APK downloads.
+- In-app changelog.
+- Recent commits.
+- Complete release history.
+- Release information and download management.
+
+---
+
+## 📱 Build Variants
+
+Ariya provides different Android build variants.
+
+| Variant | Description |
+|---|---|
+| GMS | Build with Google Mobile Services integration |
+| FOSS | Firebase-free build |
+
+### Available Packages
+
+- Android GMS Universal APK
+- Android FOSS Universal APK
+- ARM64 APK
+- Android TV / Google TV APK
+- Android App Bundle (AAB)
+
+Check the official release page for currently available downloads.
+
+---
+
+## 📦 Version Information
+
+| Property | Details |
+|---|---|
+| Application | Ariya |
+| Version | 1.3.0 |
+| Version Code | 13 |
+| Release | Ariya Eclipse |
+| Primary Platform | Android |
+| Project Vision | Cross-platform |
+
+---
+
+## ⚙️ Settings & Configuration
+
+### Lyrics Configuration
+
+Navigate to:
+
+`Settings → Lyrics`
+
+Enable or disable individual lyrics providers according to your preferences.
+
+### JioSaavn Fallback
+
+Navigate to:
+
+`Settings → Player Settings → JioSaavn fallback`
+
+Enable this option to allow Ariya to use JioSaavn streams when YouTube cannot provide a playable stream.
+
+### PaxSenix Integration
+
+PaxSenix is optional and supports user-provided API keys.
+
+### Notifications
+
+Notifications are supported through Firebase Cloud Messaging in GMS builds. FOSS builds remain independent of Firebase.
+
+---
+
+## 🚀 Installation
+
+1. Visit the official Ariya releases page.
+2. Select your preferred build variant.
+3. Download the compatible package.
+4. Install Ariya on your supported device.
+5. Open the application and start listening.
+
+**Note:** Availability of installation packages varies by platform.
+
+---
+
+## 🛠️ Building from Source
+
+### Requirements
+
+- Android Studio
+- Compatible JDK
+- Android SDK
+- Git
+- Gradle wrapper included with the project
+
+### Clone the Repository
 
 ```bash
-DATABASE_URL=postgresql://…     # optional, enables the PostgreSQL cache tier (without it the app runs memory-only)
-NEXT_PUBLIC_SITE_URL=https://ariyamusic.us.ci   # optional, canonical origin override
-GITHUB_TOKEN=…                  # optional, server-only, raises GitHub API rate limits
+git clone <REPOSITORY_URL>
+cd <REPOSITORY_DIRECTORY>
 ```
 
-`GITHUB_TOKEN` is read exclusively in `src/lib/github.ts` on the server and is never exposed to the
-browser. Apply the schema with:
+### Open the Project
+
+1. Open the project in Android Studio.
+2. Wait for Gradle synchronization.
+3. Install the required Android SDK components.
+4. Select the desired build variant.
+5. Build and run the application.
+
+### Check Available Gradle Tasks
+
+**Windows**
 
 ```bash
-npx drizzle-kit push
+gradlew.bat tasks
 ```
 
-## Security
-
-- Strict CSP, HSTS, `X-Content-Type-Options`, COOP/CORP, `Referrer-Policy`, and a restrictive
-  `Permissions-Policy` (`next.config.ts`). Framing is restricted with a CSP `frame-ancestors
-  'self'` directive instead of `X-Frame-Options`, so no third-party origin can embed the site.
-- No `dangerouslySetInnerHTML` for upstream content — Markdown is parsed into React nodes.
-  The only inline scripts are the escaped JSON-LD payload and a small static
-  service-worker cleanup shim in the root layout.
-- Links in release notes/news are restricted to HTTPS hosts on an allowlist.
-- The news image proxy (`/api/news/artwork`) validates host, HTTPS, content type and payload size,
-  and requests a deterministic resized WebP variant from imgix so intermediary caches cannot serve a
-  full-size source image.
-- No analytics, ad scripts, accounts, cookies or personal data collection.
-- APK downloads open the official GitHub asset URL; the server never proxies binaries.
-- A pre-hydration inline script in `layout.tsx` unregisters any service worker left behind by
-  earlier deployments of this site, purges its Cache Storage entries and reloads the tab once, so
-  stale cached chunks cannot cause hydration mismatches or ghost assets for returning visitors.
-  It is a no-op for browsers without a registration.
-
-Deployment still needs to terminate TLS and force HTTPS redirects at the edge, and should keep the
-optional GitHub token in a server-side secret store.
-
-## Performance notes
-
-- Server components render all crawlable copy; heavy interactive pieces are small client islands.
-- Images use fixed dimensions / aspect ratios to avoid layout shift; below-the-fold media is lazy.
-- The particle canvas caps at ~54 particles, pauses offscreen/hidden, and is skipped on small or
-  low-power devices. Intro loader is CSS-only, pointer-events-none, under 1 second, once per session.
-- Release/news metadata is cached to avoid duplicate upstream requests.
-
-## UI/UX QA layer
-
-- `.container-page` uses fluid gutters (`clamp(1rem, 4vw, 2rem)`), caps at `82rem` and widens to
-  `88rem` on ultrawide screens.
-- Single navigation switch point at `lg` (1024px). Between 768–1023px the menu is a drawer, so the
-  header never overflows; header utilities hide at set breakpoints via wrapper spans (Tailwind's
-  `hidden` is not overridden by the unlayered `.chip`/`.btn` base classes).
-- All `.btn` variants share a 44px minimum touch target, consistent hover/active/focus/disabled
-  states, wrapping text and an `.btn-icon` square variant. Inline card links use `.tap`/`.tap-sm`.
-- `code`, `.font-mono` and `.break-anywhere` break long URLs/identifiers so a single asset name can
-  never widen a grid column (this previously clipped `/download` at 320–375px).
-- Components: `FeatureExplorer` (category filtering), `ScreenshotGallery` (genuine in-app
-  screenshots + keyboard lightbox), `NewsExplorer` (search/filter/sort), `ScrollToTop`,
-  `OfflineBanner`, `SafeImage` (graceful image fallback) and a CSS-only `template.tsx` page transition.
-
-Verified with headless Chromium (Playwright) at 320/375/390/430/768/1024/1280/1440/1920px across
-`/`, `/download`, `/releases`, `/news`, `/about`, `/faq`: 0 horizontal overflow, 0 console errors,
-0 broken images, one `<h1>` per page, plus 20 passing interaction/a11y checks.
-
-## Brand assets
-
-All favicons, PWA icons and the brand logo are derived from a single source file,
-`scripts/ariya_logo_source.png`. `scripts/make-assets.ps1` regenerates every size referenced by
-`layout.tsx` (16/32/64/160/512 favicons, 180 apple-touch), `manifest.ts` (64/160/180/240/512 plus a
-maskable 512) and `site.ts` (`ariya_logo.png`, `ariya-logo-240.png`, `icon-512.png`) into
-`public/assets/`. Re-run it after swapping the source logo:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\make-assets.ps1
-```
-
-## Known limitations (honest reporting)
-
-- Some showcase cards remain clearly labelled **illustrative UI previews** (CSS mockups) where no
-  official screenshot exists; cards marked **In-app screenshot** are genuine captures from the app.
-- The imgix-backed release artwork occasionally fails its first fetch through `/api/news/artwork`
-  (upstream timeout); the browser retry succeeds and the route caches the result for a day.
-- `notFound()` responses for unknown release/news slugs currently render the branded 404 page with a
-  `200` status because Next 16 streams dynamic routes; those responses are explicitly `noindex`.
-- Lighthouse was not executed inside this sandbox (no headless browser available). Route status codes,
-  production build, type checks and payload sizes were verified directly; run Lighthouse against the
-  deployed HTTPS URL for field/lab scores.
-- GitHub availability and rate limits are external dependencies; the UI degrades gracefully.
-
-## Scripts
+**Linux / macOS**
 
 ```bash
-npm run dev        # local development
-npm run lint       # ESLint (Next core-web-vitals + React hooks rules)
-npm run typecheck  # tsc --noEmit
-npm run build      # production build
-npm run start      # production server
+./gradlew tasks
 ```
+
+---
+
+## 🔐 Privacy & Security
+
+Ariya aims to provide a secure and reliable listening experience.
+
+- API keys should remain private.
+- Signing credentials must never be publicly shared.
+- External integrations should be clearly documented.
+- Only necessary permissions should be requested.
+- FOSS builds remain Firebase-free.
+- Users should be informed about external services used by the application.
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and bug reports are welcome.
+
+Before submitting a contribution:
+
+1. Check existing issues.
+2. Describe the proposed changes.
+3. Keep modifications focused.
+4. Test the affected functionality.
+5. Provide relevant screenshots or logs when necessary.
+
+---
+
+## 🐛 Bug Reports
+
+If you encounter a problem, please provide:
+
+- Ariya version.
+- Platform and operating system version.
+- Device model.
+- Build variant (GMS/FOSS, where applicable).
+- Steps to reproduce the issue.
+- Expected behaviour.
+- Actual behaviour.
+- Relevant error logs.
+
+Please remove personal information and sensitive credentials before sharing logs.
+
+---
+
+## 📢 Updates & Releases
+
+Follow the official Ariya release page for:
+
+- New versions.
+- Feature improvements.
+- Bug fixes.
+- Performance updates.
+- Security improvements.
+- New platform releases.
+- Release announcements.
+
+Always verify that you are downloading the correct build for your device.
+
+---
+
+## 📄 License
+
+License information will be provided according to the project's official licensing terms.
+
+---
+
+<p align="center">
+
+# 🌙 Ariya
+
+**Music at Dusk.**
+
+*Your music. Your experience. Your Ariya.*
+
+</p>
