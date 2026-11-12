@@ -356,8 +356,11 @@ const sections: Section[] = [
         </ul>
         <p>
           The project operates no server that stores app-user data, so there is nothing for the
-          project to delete on request. The website&apos;s server-side cache is described in
-          section 9.
+          project to delete on request. Step-by-step deletion instructions live on the{" "}
+          <Link href="/delete-data" className="text-violet-200 transition hover:text-white">
+            delete your data
+          </Link>{" "}
+          page; the website&apos;s server-side cache is described in section 10.
         </p>
       </div>
     ),

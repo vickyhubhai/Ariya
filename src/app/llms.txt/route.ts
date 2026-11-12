@@ -59,6 +59,7 @@ ${faq.map((item) => `### ${item.question}\n${item.answer}`).join("\n\n")}
 - Privacy Policy: ${SITE_URL}/privacy
 - Terms of Service: ${SITE_URL}/terms
 - Contact / Support: ${SITE_URL}/contact
+- Delete your data: ${SITE_URL}/delete-data
 
 ## Privacy and terms
 The Privacy Policy at ${SITE_URL}/privacy describes, from the app source code: data stored locally

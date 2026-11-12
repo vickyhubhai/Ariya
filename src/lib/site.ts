@@ -81,6 +81,7 @@ export const footerGroups = [
       { href: "/privacy", label: "Privacy Policy" },
       { href: "/terms", label: "Terms of Service" },
       { href: "/contact", label: "Contact / Support" },
+      { href: "/delete-data", label: "Delete your data" },
     ],
   },
   {
