@@ -68,7 +68,9 @@ export default async function DownloadPage() {
           </h1>
           <p className="lede mt-4 max-w-2xl">
             Free, open-source and published only through GitHub Releases. Pick a build below — the
-            version, changelog and file sizes always come from the same stable release.
+            version, changelog and file sizes always come from the same stable release. Pre-release
+            and internal-test builds never appear here: this page lists the latest public stable
+            release only.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-2 text-xs">
             <span className="chip"><IconAndroid size={13} /> Android 8.0+</span>

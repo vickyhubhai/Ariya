@@ -242,6 +242,14 @@ const sections: GuideSection[] = [
           of third-party content.
         </Bullet>
         <Bullet>
+          The app keeps your library, history and settings on your device, and online features talk
+          directly to their own services — the full, source-verified picture is in the{" "}
+          <Link href="/privacy" className="text-violet-200 transition hover:text-white">
+            Privacy Policy
+          </Link>
+          .
+        </Bullet>
+        <Bullet>
           This website stores no personal data —{" "}
           <Link href="/about#privacy" className="text-violet-200 transition hover:text-white">
             see the privacy notes

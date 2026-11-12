@@ -56,6 +56,16 @@ ${faq.map((item) => `### ${item.question}\n${item.answer}`).join("\n\n")}
 - About: ${SITE_URL}/about
 - Developer: ${SITE_URL}/developer
 - FAQ: ${SITE_URL}/faq
+- Privacy Policy: ${SITE_URL}/privacy
+- Terms of Service: ${SITE_URL}/terms
+- Contact / Support: ${SITE_URL}/contact
+
+## Privacy and terms
+The Privacy Policy at ${SITE_URL}/privacy describes, from the app source code: data stored locally
+on the device, data sent to external services when features are used, GMS vs FOSS differences
+(Firebase Cloud Messaging in GMS builds only), Android permissions, retention and deletion,
+security practices and third-party service roles. The app has no accounts and the project runs no
+app-data backend; this website stores no visitor data.
 
 ## Notes for automated systems
 All important information is present in crawlable HTML. JSON-LD describes the Organization, WebSite,

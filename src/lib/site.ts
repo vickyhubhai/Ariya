@@ -67,30 +67,32 @@ export const footerGroups = [
     title: "Product",
     links: [
       { href: "/#features", label: "Features" },
-      { href: "/#showcase", label: "Interface showcase" },
-      { href: "/#whats-new", label: "What’s new" },
-      { href: "/download", label: "Download" },
-      { href: "/releases", label: "Release history" },
-    ],
-  },
-  {
-    title: "Project",
-    links: [
-      { href: "/news", label: "Developer news" },
-      { href: "/guide", label: "User guide" },
-      { href: "/about", label: "About Ariya" },
-      { href: "/developer", label: "About the developer" },
-      { href: "/#faq", label: "FAQ" },
-      { href: links.repo, label: "GitHub repository", external: true },
-      { href: links.newsContent, label: "News source", external: true },
+      { href: "/#showcase", label: "Showcase" },
+      { href: "/download", label: "Downloads" },
+      { href: "/releases", label: "Releases" },
+      { href: "/news", label: "News" },
     ],
   },
   {
     title: "Resources",
     links: [
+      { href: "/guide", label: "User Guide" },
+      { href: "/faq", label: "FAQ" },
+      { href: "/privacy", label: "Privacy Policy" },
+      { href: "/terms", label: "Terms of Service" },
+      { href: "/contact", label: "Contact / Support" },
+    ],
+  },
+  {
+    title: "Project",
+    links: [
+      { href: links.repo, label: "GitHub Repository", external: true },
       { href: links.releases, label: "GitHub Releases", external: true },
-      { href: links.issues, label: "Report an issue", external: true },
+      { href: links.issues, label: "Report an Issue", external: true },
       { href: links.license, label: "MIT License", external: true },
+      { href: "/news", label: "Developer news" },
+      { href: "/about", label: "About Ariya" },
+      { href: "/developer", label: "About the developer" },
       { href: "/llms.txt", label: "llms.txt", external: true },
       { href: "/sitemap.xml", label: "Sitemap", external: true },
     ],
@@ -282,9 +284,34 @@ export const faq: FaqItem[] = [
       "Ariya supports FLAC playback and multiple quality levels, and it displays synced lyrics. Both depend on the source and the specific track, so availability is not guaranteed for every song.",
   },
   {
+    question: "Which APK should I choose — ARM64 or Universal?",
+    answer:
+      "ARM64 APKs are smaller and match virtually every modern Android phone (2016 and later). The Universal APK contains all architectures and works on any supported device, including older ARMv7 phones, emulators and some TV boxes. If you are unsure, pick the Universal APK; if you know your device is ARM64, the ARM64 build saves space.",
+  },
+  {
+    question: "Music will not play or keeps buffering. What can I do?",
+    answer:
+      "Playback and lossless quality depend on the selected streaming source being reachable. Check your connection first, then try another track, lower the audio quality, or enable the JioSaavn fallback so Ariya can use an alternative stream when the primary source cannot provide one. If a specific track always fails, it may simply be unavailable on that source.",
+  },
+  {
+    question: "What is the JioSaavn fallback?",
+    answer:
+      "When a YouTube stream cannot be resolved or played, Ariya can fall back to JioSaavn streams, including up to 320 kbps audio when available. It is off by default and can be enabled under Settings → Player settings → JioSaavn fallback.",
+  },
+  {
+    question: "How do notifications work in GMS and FOSS builds?",
+    answer:
+      "GMS builds can receive project-wide push notifications through Firebase Cloud Messaging (they subscribe to a general announcement topic; no account is involved). FOSS builds contain no Firebase code and use no push service. Playback and download notifications are produced locally by the app itself in every build.",
+  },
+  {
+    question: "What data does the Ariya app itself process?",
+    answer:
+      "The app keeps your library, playlists, history, settings and caches on your device, and contacts external services only when you use the corresponding feature. Optional integrations (Spotify, Discord, Last.fm, ListenBrainz, Qobuz, PaxSenix, AI providers) use your own accounts or API keys, stored locally. The full, source-verified description lives on the Privacy Policy page.",
+  },
+  {
     question: "Does this website collect my personal data?",
     answer:
-      "This website does not ask you to sign in, does not use advertising trackers and does not store personal profiles. Release and news metadata is fetched server-side from the public GitHub API and cached briefly to stay inside GitHub rate limits.",
+      "This website does not ask you to sign in, does not use advertising trackers and does not store personal profiles. Release and news metadata is fetched server-side from the public GitHub API and cached briefly to stay inside GitHub rate limits. Details: Privacy Policy.",
   },
   {
     question: "How do I report a bug or request a feature?",

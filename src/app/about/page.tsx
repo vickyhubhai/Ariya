@@ -78,6 +78,21 @@ export default async function AboutPage() {
                   Discord integration can optionally display what you are listening to. Ariya is free
                   and released under the MIT License.
                 </p>
+                <p>
+                  <strong>Android</strong> — phones, tablets and Android TV / Google TV — is the
+                  currently available primary platform. Other platforms remain on the roadmap and
+                  are listed as planned, not available:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Available now:</strong> Android 8.0+ phones and tablets, Android TV and
+                    Google TV (GMS and FOSS builds).
+                  </li>
+                  <li>
+                    <strong>Planned:</strong> iOS, Windows, macOS and Linux. No builds for these
+                    platforms exist today; nothing on this site should be read as promising a date.
+                  </li>
+                </ul>
               </div>
             </article>
 
@@ -135,6 +150,14 @@ export default async function AboutPage() {
                   GitHub API and raw GitHub content, then cached briefly in a PostgreSQL table on the
                   server to respect GitHub’s rate limits. That cache contains only public release and
                   news metadata — never visitor information.
+                </p>
+                <p>
+                  The full data picture — the app’s local storage, its third-party integrations, the
+                  GMS/FOSS differences and Android permissions — is documented in the dedicated{" "}
+                  <Link href="/privacy" className="text-violet-200 transition hover:text-white">
+                    Privacy Policy
+                  </Link>
+                  .
                 </p>
                 <p>
                   Download buttons link straight to <code>github.com</code>. Once you leave this site,
@@ -223,6 +246,9 @@ export default async function AboutPage() {
                   { label: "Release history", href: "/releases" },
                   { label: "MIT License", href: links.license },
                   { label: "Issue tracker", href: links.issues },
+                  { label: "Privacy Policy", href: "/privacy" },
+                  { label: "Terms of Service", href: "/terms" },
+                  { label: "Contact / Support", href: "/contact" },
                   { label: "About the developer", href: "/developer" },
                   { label: "Developer profile", href: links.developer },
                 ].map((item) => (
